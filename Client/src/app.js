@@ -6,7 +6,7 @@ import Home from './components/home';
 
 render(
   <BrowserRouter history={hashHistory}>
-    <Route path="/" component={Home} />
+    <Route path="*" component={Home} />
   </BrowserRouter>,
   document.getElementById('app')
 );
