@@ -2,25 +2,45 @@ import React from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import { css } from './styles/home';
 import axios from 'axios';
+import AccountForm from './AccountForm';
 
-/*
-<div style={index%5 === 0 ? css.postContainerLg : css.postContainerSm} key={index}>
-  <img src={i.ImgSrc} alt="image" />
-  <h1 style={css.postHead}>{i.Title}</h1>
-  <div style={css.postBody}>
-    <p>Post Date: {i.Date}</p>
-  </div>
-</div>
-*/
-
-const Post = (props) => {
+const PostBig = (props) => {
   return(
-    <div>
-      <h1>{this.props.post.title}</h1>
-      <p>{this.props.post.body}</p>
-      <br />
-      <p>Post Date: {this.props.post.date}</p>
+    <div style={css.postContainerLg}>
+      <img src={props.post.ImgSrc} style={css.postImage} alt="image" />
+      <h1 style={css.postHead}
+        onClick={() => window.location.pathname = '/post/'+props.post.postId}>{props.post.Title}</h1>
+      <div style={css.postBody}>
+        <p>Post Date: {props.post.Date}</p>
+      </div>
     </div>
+  );
+}
+
+const PostSmall = (props) => {
+  return(
+    <ul style={css.doublePostBox}>
+      <li>
+        <div style={css.doubleBoxItem}>
+          <img src={props.p1.ImgSrc} style={css.postImage} alt="image" />
+          <h1 style={css.postHead}
+            onClick={() => window.location.pathname = '/post/'+props.p1.postId}>{props.p1.Title}</h1>
+          <div style={css.postBody}>
+            <p>Post Date: {props.p1.Date}</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div style={css.doubleBoxItem}>
+          <img src={props.p2.ImgSrc} style={css.postImage} alt="image" />
+          <h1 style={css.postHead}
+            onClick={() => window.location.pathname = '/post/'+props.p2.postId}>{props.p2.Title}</h1>
+          <div style={css.postBody}>
+            <p>Post Date: {props.p2.Date}</p>
+          </div>
+        </div>
+      </li>
+    </ul>
   );
 }
 
@@ -29,12 +49,32 @@ export default class Home extends React.Component{
   constructor(){
     super();
     this.state = {
-      posts: []
+      posts: [],
+      loggedIn: false,
+      titles: []
     }
-    axios.get("rest/posts/")
+    axios.get("rest/posts/category/1")
       .then((response) => {
-        this.setState({posts: [...this.state.posts, response.data]});
+        let title = response.data.shift();
+        this.setState({
+          posts: [...this.state.posts, response.data],
+          titles: this.state.titles.concat(title)
+        });
       });
+    axios.get("rest/posts/category/2")
+      .then((response) => {
+        let title = response.data.shift();
+        this.setState({
+          posts: [...this.state.posts, response.data],
+          titles: this.state.titles.concat(title)
+        });
+      });
+  }
+
+  greeting(){
+    if(!this.state.loggedIn){
+      return <AccountForm />;
+    }
   }
 
   render(){
@@ -48,70 +88,29 @@ export default class Home extends React.Component{
           </h1>
           <h3 style={Object.assign({}, css.header_h1, css.hr)}>Not Signed In</h3>
         </header>
-        <section style={css.body}>
-          <div style={css.accountPrompt}>
-            <h1 style={css.headline}>Hello, Guest!</h1>
-            <div style={css.button}
-              onMouseEnter={(e) => e.target.style.color = 'blue'}
-              onMouseLeave={(e) => e.target.style.color = 'white'}>Log in</div>
-            <div style={css.button}
-              onMouseEnter={(e) => e.target.style.color = 'blue'}
-              onMouseLeave={(e) => e.target.style.color = 'white'}>Sign up</div>
-          </div>
-        </section>
-        <section style={css.allPosts}>
-          {this.state.posts.map((posts, index) =>
-            <div key={index} style={{display: 'inline-flex'}}>
-              <div style={css.postContainerLg}>
-                <img src={posts[0].ImgSrc} alt="image" />
-                <h1 style={css.postHead}>{posts[0].Title}</h1>
-                <div style={css.postBody}>
-                  <p>Post Date: {posts[0].Date}</p>
-                </div>
-              </div>
-              <ul style={css.doublePostBox}>
-                <li>
-                  <div style={css.doubleBoxItem}>
-                    <img src={posts[1].ImgSrc} alt="image" />
-                    <h1 style={css.postHead}>{posts[1].Title}</h1>
-                    <div style={css.postBody}>
-                      <p>Post Date: {posts[1].Date}</p>
+        {this.greeting()}
+        <Switch>
+          <Route exact path="/">
+            <div>
+              <section style={css.allPosts}>
+                {this.state.posts.map((posts, index) =>
+                  <div key={index}>
+                    <h1>{this.state.titles[index]}</h1>
+                    <div style={{display: 'inline-flex', margin: '0 auto', paddingBottom: '12px'}}>
+                      <PostBig post={posts[0]} />
+                      <PostSmall p1={posts[1]} p2={posts[2]} />
+                      <PostSmall p1={posts[3]} p2={posts[4]} />
                     </div>
+                    <br />
                   </div>
-                </li>
-                <li>
-                  <div style={css.doubleBoxItem}>
-                    <img src={posts[2].ImgSrc} alt="image" />
-                    <h1 style={css.postHead}>{posts[2].Title}</h1>
-                    <div style={css.postBody}>
-                      <p>Post Date: {posts[2].Date}</p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <ul style={css.doublePostBox}>
-                <li>
-                  <div style={css.doubleBoxItem}>
-                    <img src={posts[3].ImgSrc} alt="image" />
-                    <h1 style={css.postHead}>{posts[3].Title}</h1>
-                    <div style={css.postBody}>
-                      <p>Post Date: {posts[3].Date}</p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div style={css.doubleBoxItem}>
-                    <img src={posts[4].ImgSrc} alt="image" />
-                    <h1 style={css.postHead}>{posts[4].Title}</h1>
-                    <div style={css.postBody}>
-                      <p>Post Date: {posts[4].Date}</p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+                )}
+              </section>
             </div>
-          )}
-        </section>
+          </Route>
+          <Route path="/post">
+
+          </Route>
+        </Switch>
       </div>
     );
   }

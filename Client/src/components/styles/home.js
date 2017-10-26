@@ -20,7 +20,7 @@ export const css = {
     padding: '80px 0 0',
     height: '650px',
     width: '100%',
-    opacity: 0.8,
+    opacity: 1,
     background: 'url("interior.jpg")',
     backgroundAttachment: 'fixed',
     backgroundRepeat: 'no-repeat',
@@ -53,40 +53,52 @@ export const css = {
     lineHeight: '70px',
     borderRadius: '5px',
     cursor: 'pointer',
-    border: '1px solid white'
+    border: '1px solid white',
+    userSelect: 'none'
   },
 
   allPosts: {
-    width: '700px',
+    width: '100vw',
     margin: '0 auto',
-    display: 'block'
+    display: 'inline-block',
+    textAlign: 'center'
   },
 
   postContainerLg: {
-    height: '350px',
-    width: '225px',
+    height: '450px',
+    width: '325px',
     border: '1px solid black',
     display: 'inline-block',
     verticalAlign: 'top',
-    marginTop: '15px'
+    marginTop: '15px',
+    borderRadius: '5px'
   },
 
   postHead: {
     margin: '0',
     paddingTop: '12px',
-    opacity: 0.3
+    opacity: 0.3,
+    cursor: 'pointer'
+  },
+
+  postImage: {
+    height: '40%',
+    width: 'auto',
+    margin: '2% auto 0',
+    borderRadius: '5px'
   },
 
   postBody: {
     width: '60%',
     background: 'white',
     padding: '0 10px',
-    borderRadius: '5px'
+    borderTopRightRadius: '5px',
+    borderBottomRightRadius: '5px'
   },
 
   doublePostBox: {
-    height: '350px',
-    width: '225px',
+    height: '450px',
+    width: '325px',
     listStyle: 'none',
     padding: 0,
     margin: '0 5px',
@@ -95,10 +107,11 @@ export const css = {
   },
 
   doubleBoxItem: {
-    height: '45%',
+    height: '49%',
     width: '98%',
-    margin: '5% auto',
-    border: '1px solid black'
+    margin: '0 auto 2%',
+    border: '1px solid black',
+    borderRadius: '5px'
   }
 
 };
