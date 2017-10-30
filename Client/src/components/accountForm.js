@@ -1,5 +1,4 @@
 import React from 'react';
-import { css } from './styles/home';
 
 export default class AccountForm extends React.Component{
 
@@ -17,13 +16,13 @@ export default class AccountForm extends React.Component{
   _getPageStatus(){
     if(this.state.prompt === 'guest'){
       return(
-        <div style={css.accountPrompt}>
-          <h1 style={css.headline}>Hello, Guest!</h1>
-          <div style={css.button}
+        <div className="accountPrompt">
+          <h1 className="headline">Hello, Guest!</h1>
+        <div className="button"
             onMouseEnter={(e) => e.target.style.color = 'blue'}
             onMouseLeave={(e) => e.target.style.color = 'white'}
             onMouseDown={() => this.animate('login')}>Log in</div>
-          <div style={css.button}
+          <div className="button"
             onMouseEnter={(e) => e.target.style.color = 'blue'}
             onMouseLeave={(e) => e.target.style.color = 'white'}
             onMouseDown={() => this.animate('signup')}>Sign up</div>
@@ -34,7 +33,7 @@ export default class AccountForm extends React.Component{
 
   render(){
     return(
-      <section style={css.body}>
+      <section className="body" style={{backgroundImage: "url('interior.jpg')"}}>
         {this._getPageStatus()}
       </section>
     );
