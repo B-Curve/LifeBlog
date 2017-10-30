@@ -5,14 +5,19 @@
  */
 package com.sg.lifeblogserver.dao;
 
-import com.sg.lifeblogserver.model.Category;
+import com.sg.lifeblogserver.model.Post;
 import java.util.List;
 
 /**
  *
- * @author asmat
+ * @author brandonkervin
  */
-public interface CategoryDao {
+public interface PostDao {
     
-    List<Category> getAllCategories();
+    List<Post> getAllPosts();
+    
+    List<Post> getPostsByCategory(String category);
+    
+    Post getPostById(int id);
+    
 }

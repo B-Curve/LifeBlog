@@ -5,14 +5,19 @@
  */
 package com.sg.lifeblogserver.dao;
 
-import com.sg.lifeblogserver.model.Category;
 import java.util.List;
+import com.sg.lifeblogserver.model.User;
 
 /**
  *
- * @author asmat
+ * @author brandonkervin
  */
-public interface CategoryDao {
+public interface UserDao {
     
-    List<Category> getAllCategories();
+    List<User> getAllUsers();
+    
+    User getUserByUsername(String username);
+    
+    User getUserById(int id);
+    
 }

@@ -34,6 +34,7 @@ public class Post {
     private Category category;
     private String title;
     private String body;
+    //private List<Reply> replies = new ArrayList<>(); <-- Thinking we need this...
     private int likes;
 
     public long getId() {
