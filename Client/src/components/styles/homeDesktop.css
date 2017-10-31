@@ -4,37 +4,45 @@ body{
 
 .header{
   color: black;
-  background: #FCDC3B;
-  width: 100vw;
-  height: 80px
+  /*background: #FCDC3B;*/
+  width: 60vw;
+  height: 60px;
+  margin: 0 auto;
+  opacity: 0.8;
 }
 
 .header_h1{
-  line-height: 80px;
-  width: 20%;
-  margin: 0
+  line-height: 60px;
+  width: 30%;
+  margin: 0;
+  font-size: 1.33em;
 }
 
 .hl{
   float: left;
-  padding-left: 20px;
-  cursor: pointer
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 32px;
+  font-family: 'Cinzel', serif;
 }
 
 .hr{
   float: right;
-  padding-right: 20px;
+  padding-right: 30px;
   text-align: right
 }
 
 .body{
-  padding: 80px 0 0;
-  height: 650px;
-  width: 100%;
+  padding: 80px 0;
+  height: 20em;
+  width: 70vw;
+  margin: 2.5em auto 0;
   opacity: 1;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-position: center
+  background-position: center bottom;
+  background-size: cover;
+  border-radius: .5em;
 }
 
 .accountPrompt{
@@ -54,14 +62,14 @@ body{
 }
 
 .button{
-  font-size: 28px;
+  font-size: 22px;
   background: black;
-  width: 30%;
-  height: 70px;
+  width: 7.5em;
   margin: 50px auto;
   color: white;
   line-height: 70px;
-  border-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
   cursor: pointer;
   border: 1px solid white;
   user-select: none
@@ -129,7 +137,7 @@ body{
   color: white;
   font-size: 18px;
   padding: 1em;
-  border-radius: 1em;
+  border-radius: .25em;
   border: 1px solid black;
   cursor: pointer;
   text-decoration: none;

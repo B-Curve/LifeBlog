@@ -68,7 +68,7 @@ export default class Feed extends React.Component{
         {this.props.loggedIn ?
         <div style={{width: '100vw', textAlign: 'center', margin: '2em 0'}}>
           <Link className="newPost" to="/newPost">Create New Post</Link>
-        </div> : null}
+      </div> : <div></div>}
         <section className="allPosts">
           {this.props.posts.map((posts, index) =>
             <div key={index}>

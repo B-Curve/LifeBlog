@@ -12,7 +12,7 @@ export default class Home extends React.Component{
     super();
     this.state = {
       posts: [],
-      loggedIn: true,
+      loggedIn: false,
       titles: [],
       username: ''
     }
@@ -50,11 +50,12 @@ export default class Home extends React.Component{
           </h3>
         </header>
 
-        {this.state.loggedIn ? null : <AccountForm />}
-
-        <Switch>
+        <Switch>=
           <Route exact path="/">
-            <Feed loggedIn={this.state.loggedIn} posts={this.state.posts} titles={this.state.titles} />
+            <div>
+              {this.state.loggedIn ? null : <AccountForm />}
+              <Feed loggedIn={this.state.loggedIn} posts={this.state.posts} titles={this.state.titles} />
+            </div>
           </Route>
           <Route path="/newPost">
             <div>{this.state.loggedIn ? <PostCreator /> : null}</div>
