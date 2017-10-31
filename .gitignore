@@ -2,3 +2,4 @@ Client/node_modules
 *.bundle.js
 *.json
 *.class
+.DS_Store
