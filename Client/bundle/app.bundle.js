@@ -26786,7 +26786,7 @@ var Home = function (_React$Component) {
 
     _this.state = {
       posts: [],
-      loggedIn: true,
+      loggedIn: false,
       titles: [],
       username: ''
     };
@@ -26837,14 +26837,19 @@ var Home = function (_React$Component) {
             this.state.loggedIn ? 'Signed In As: ' + this.state.username : 'Not Signed In'
           )
         ),
-        this.state.loggedIn ? null : _react2.default.createElement(_accountForm2.default, null),
         _react2.default.createElement(
           _reactRouterDom.Switch,
           null,
+          '=',
           _react2.default.createElement(
             _reactRouterDom.Route,
             { exact: true, path: '/' },
-            _react2.default.createElement(_feed2.default, { loggedIn: this.state.loggedIn, posts: this.state.posts, titles: this.state.titles })
+            _react2.default.createElement(
+              'div',
+              null,
+              this.state.loggedIn ? null : _react2.default.createElement(_accountForm2.default, null),
+              _react2.default.createElement(_feed2.default, { loggedIn: this.state.loggedIn, posts: this.state.posts, titles: this.state.titles })
+            )
           ),
           _react2.default.createElement(
             _reactRouterDom.Route,
@@ -27802,47 +27807,21 @@ var AccountForm = function (_React$Component) {
   }, {
     key: '_getPageStatus',
     value: function _getPageStatus() {
-      var _this2 = this;
-
-      if (this.state.prompt === 'guest') {
-        return _react2.default.createElement(
-          'div',
-          { className: 'accountPrompt' },
-          _react2.default.createElement(
-            'h1',
-            { className: 'headline' },
-            'Hello, Guest!'
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'button',
-              onMouseEnter: function onMouseEnter(e) {
-                return e.target.style.color = 'blue';
-              },
-              onMouseLeave: function onMouseLeave(e) {
-                return e.target.style.color = 'white';
-              },
-              onMouseDown: function onMouseDown() {
-                return _this2.animate('login');
-              } },
-            'Log in'
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'button',
-              onMouseEnter: function onMouseEnter(e) {
-                return e.target.style.color = 'blue';
-              },
-              onMouseLeave: function onMouseLeave(e) {
-                return e.target.style.color = 'white';
-              },
-              onMouseDown: function onMouseDown() {
-                return _this2.animate('signup');
-              } },
-            'Sign up'
-          )
-        );
-      }
+      // if(this.state.prompt === 'guest'){
+      //   return(
+      //     <div className="accountPrompt">
+      //       <h1 className="headline">Hello, Guest!</h1>
+      //     <div className="button"
+      //         onMouseEnter={(e) => e.target.style.color = 'blue'}
+      //         onMouseLeave={(e) => e.target.style.color = 'white'}
+      //         onMouseDown={() => this.animate('login')}>Log in</div>
+      //       <div className="button"
+      //         onMouseEnter={(e) => e.target.style.color = 'blue'}
+      //         onMouseLeave={(e) => e.target.style.color = 'white'}
+      //         onMouseDown={() => this.animate('signup')}>Sign up</div>
+      //     </div>
+      //   );
+      // }
     }
   }, {
     key: 'render',
@@ -27850,7 +27829,12 @@ var AccountForm = function (_React$Component) {
       return _react2.default.createElement(
         'section',
         { className: 'body', style: { backgroundImage: "url('interior.jpg')" } },
-        this._getPageStatus()
+        this._getPageStatus(),
+        _react2.default.createElement(
+          'div',
+          { className: 'image-description' },
+          _react2.default.createElement('h1', null)
+        )
       );
     }
   }]);
@@ -28120,7 +28104,7 @@ exports = module.exports = __webpack_require__(42)(undefined);
 
 
 // module
-exports.push([module.i, "body{\n  background: blue;\n}\n\n.header{\n  color: black;\n  background: #FCDC3B;\n  width: 100vw;\n  height: 80px\n}\n\n.header_h1{\n  line-height: 80px;\n  width: 20%;\n  margin: 0\n}\n\n.hl{\n  float: left;\n  padding-left: 20px;\n  cursor: pointer\n}\n\n.hr{\n  float: right;\n  padding-right: 20px;\n  text-align: right\n}\n\n.body{\n  padding: 80px 0 0;\n  height: 650px;\n  width: 100%;\n  opacity: 1;\n  background-attachment: fixed;\n  background-repeat: no-repeat;\n  background-position: center\n}\n\n.accountPrompt{\n  width: 80%;\n  height: 80%;\n  margin: 0 auto;\n  background: none;\n  opacity: 0.7;\n  border-radius: 1rem;\n  text-align: center\n}\n\n.headline{\n  font-size: 32px;\n  margin: 0;\n  padding-top: 5%\n}\n\n.button{\n  font-size: 28px;\n  background: black;\n  width: 30%;\n  height: 70px;\n  margin: 50px auto;\n  color: white;\n  line-height: 70px;\n  border-radius: 5px;\n  cursor: pointer;\n  border: 1px solid white;\n  user-select: none\n}\n\n.allPosts{\n  width: 100vw;\n  margin: 0 auto;\n  display: inline-block;\n  text-align: center\n}\n\n.postContainerLg{\n  height: 450px;\n  width: 325px;\n  border: 1px solid black;\n  display: inline-block;\n  vertical-align: top;\n  margin-top: 15px;\n  border-radius: 5px\n}\n\n.postHead{\n  margin: 0;\n  margin-top: 12px;\n  opacity: 0.3;\n  cursor: pointer\n}\n\n.postImage{\n  height: 40%;\n  width: auto;\n  margin: 2% auto 0;\n  border-radius: 5px\n}\n\n.postDate{\n  width: 60%;\n  background: white;\n  padding: 0 10px;\n  border-top-right-radius: 5px;\n  border-bottom-right-radius: 5px\n}\n\n.doublePostBox{\n  height: 450px;\n  width: 325px;\n  list-style: none;\n  padding: 0;\n  margin: 0 5px;\n  display: block;\n  margin-top: 15px\n}\n\n.doubleBoxItem{\n  height: 49%;\n  width: 98%;\n  margin: 0 auto 2%;\n  border: 1px solid black;\n  border-radius: 5px\n}\n\n.newPost{\n  background: cornflowerblue;\n  color: white;\n  font-size: 18px;\n  padding: 1em;\n  border-radius: 1em;\n  border: 1px solid black;\n  cursor: pointer;\n  text-decoration: none;\n}\n", ""]);
+exports.push([module.i, "body{\n  background: blue;\n}\n\n.header{\n  color: black;\n  /*background: #FCDC3B;*/\n  width: 60vw;\n  height: 60px;\n  margin: 0 auto;\n  opacity: 0.8;\n}\n\n.header_h1{\n  line-height: 60px;\n  width: 30%;\n  margin: 0;\n  font-size: 1.33em;\n}\n\n.hl{\n  float: left;\n  padding-left: 30px;\n  cursor: pointer;\n  font-size: 32px;\n  font-family: 'Cinzel', serif;\n}\n\n.hr{\n  float: right;\n  padding-right: 30px;\n  text-align: right\n}\n\n.body{\n  padding: 80px 0;\n  height: 20em;\n  width: 70vw;\n  margin: 2.5em auto 0;\n  opacity: 1;\n  background-attachment: fixed;\n  background-repeat: no-repeat;\n  background-position: center bottom;\n  background-size: cover;\n  border-radius: .5em;\n}\n\n.accountPrompt{\n  width: 80%;\n  height: 80%;\n  margin: 0 auto;\n  background: none;\n  opacity: 0.7;\n  border-radius: 1rem;\n  text-align: center\n}\n\n.headline{\n  font-size: 32px;\n  margin: 0;\n  padding-top: 5%\n}\n\n.button{\n  font-size: 22px;\n  background: black;\n  width: 7.5em;\n  margin: 50px auto;\n  color: white;\n  line-height: 70px;\n  border-bottom-left-radius: 5px;\n  border-top-right-radius: 5px;\n  cursor: pointer;\n  border: 1px solid white;\n  user-select: none\n}\n\n.allPosts{\n  width: 100vw;\n  margin: 0 auto;\n  display: inline-block;\n  text-align: center\n}\n\n.postContainerLg{\n  height: 450px;\n  width: 325px;\n  border: 1px solid black;\n  display: inline-block;\n  vertical-align: top;\n  margin-top: 15px;\n  border-radius: 5px\n}\n\n.postHead{\n  margin: 0;\n  margin-top: 12px;\n  opacity: 0.3;\n  cursor: pointer\n}\n\n.postImage{\n  height: 40%;\n  width: auto;\n  margin: 2% auto 0;\n  border-radius: 5px\n}\n\n.postDate{\n  width: 60%;\n  background: white;\n  padding: 0 10px;\n  border-top-right-radius: 5px;\n  border-bottom-right-radius: 5px\n}\n\n.doublePostBox{\n  height: 450px;\n  width: 325px;\n  list-style: none;\n  padding: 0;\n  margin: 0 5px;\n  display: block;\n  margin-top: 15px\n}\n\n.doubleBoxItem{\n  height: 49%;\n  width: 98%;\n  margin: 0 auto 2%;\n  border: 1px solid black;\n  border-radius: 5px\n}\n\n.newPost{\n  background: cornflowerblue;\n  color: white;\n  font-size: 18px;\n  padding: 1em;\n  border-radius: .25em;\n  border: 1px solid black;\n  cursor: pointer;\n  text-decoration: none;\n}\n", ""]);
 
 // exports
 
@@ -28297,7 +28281,7 @@ var Feed = function (_React$Component) {
             { className: 'newPost', to: '/newPost' },
             'Create New Post'
           )
-        ) : null,
+        ) : _react2.default.createElement('div', null),
         _react2.default.createElement(
           'section',
           { className: 'allPosts' },
