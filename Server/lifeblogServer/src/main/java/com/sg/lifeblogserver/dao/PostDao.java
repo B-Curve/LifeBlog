@@ -16,6 +16,7 @@ public interface PostDao {
     
     Post getById(long id);
     List<Post> getAll();
+    List<Post> getByCategory(long id);
     Post add(Post post);
     Post update(Post post);
     void delete(long id);
