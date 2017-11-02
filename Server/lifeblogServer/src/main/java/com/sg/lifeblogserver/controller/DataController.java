@@ -36,7 +36,7 @@ public class DataController {
     
     @RequestMapping(value="/categories", method=RequestMethod.GET)
     public ResponseEntity fetchCategories(){
-        return ResponseEntity.ok(categories.getAllCategories());
+        return ResponseEntity.ok(categories.getAll());
     }
     
     @RequestMapping(value="/posts/{sort}", method=RequestMethod.GET)
@@ -44,20 +44,20 @@ public class DataController {
         switch(sorting){
             case "homedecor":
                 return ResponseEntity
-                        .ok(posts.getPostsByCategory("homedecor"));
+                        .ok(posts.getByCategory(1));
             case "fashion":
                 return ResponseEntity
-                        .ok(posts.getPostsByCategory("fashion"));
+                        .ok(posts.getByCategory(2));
             case "automotive":
                 return ResponseEntity
-                        .ok(posts.getPostsByCategory("automotive"));
+                        .ok(posts.getByCategory(3));
             case "health":
                 return ResponseEntity
-                        .ok(posts.getPostsByCategory("health"));
+                        .ok(posts.getByCategory(4));
             default:
                 //DEFAULT = NO SORTING. SEND ALL POSTS
                 return ResponseEntity
-                        .ok(posts.getAllPosts());
+                        .ok(posts.getAll());
         }
     }
     
@@ -76,7 +76,7 @@ public class DataController {
     
     @RequestMapping(value="post/{postId}", method=RequestMethod.GET)
     public ResponseEntity fetchPost(@PathVariable("postId") int id){
-        Post p = posts.getPostById(id);
+        Post p = posts.getById(id);
         if(p == null) return ResponseEntity.badRequest()
                 .body("Post #" + id + " not found.");
         return ResponseEntity.ok(p);
