@@ -21,7 +21,10 @@
 
         <!-- Entities! -->
         <mapping class="com.sg.lifeblogserver.model.Category"/>
-
+        <mapping class="com.sg.lifeblogserver.model.Post"/>
+        <mapping class="com.sg.lifeblogserver.model.Reply"/>
+        <mapping class="com.sg.lifeblogserver.model.User"/>
+        <mapping class="com.sg.lifeblogserver.model.Role"/>
 
     </session-factory>
 </hibernate-configuration>

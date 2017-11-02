@@ -15,8 +15,12 @@ import java.util.List;
 public interface CategoryDao {
     
     List<Category> getAll();
-    Category getById();
+    
+    Category getById(long id);
+    
     Category add(Category category);
+    
     Category update(Category category); 
-    void delete(Category category);
+    
+    void delete(long id);
 }

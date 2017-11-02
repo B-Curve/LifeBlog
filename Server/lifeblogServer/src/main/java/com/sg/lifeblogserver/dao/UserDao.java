@@ -13,11 +13,17 @@ import com.sg.lifeblogserver.model.User;
  * @author brandonkervin
  */
 public interface UserDao {
+
+    List<User> getAll();
+
+    User getByUsername(String username);
+
+    User getById(int id);
     
-    List<User> getAllUsers();
+    User add(User user);
     
-    User getUserByUsername(String username);
+    User update(User user);
     
-    User getUserById(int id);
-    
+    void delete(long id);
+
 }

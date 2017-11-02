@@ -15,6 +15,9 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd"> 
 
     <!-- Bean definitions go here -->
-    <bean id="categorydao" class="com.sg.lifeblogserver.dao.CategoryDao"/>
+    <bean id="categorydao" class="com.sg.lifeblogserver.dao.CategoryDaoImpl"/>
+    <bean id="userdao" class="com.sg.lifeblogserver.dao.UserDaoImpl"/>
+    <bean id="replydao" class="com.sg.lifeblogserver.dao.ReplyDaoImpl"/>
+    <bean id="postdao" class="com.sg.lifeblogserver.dao.PostDaoImpl"/>
     
 </beans>

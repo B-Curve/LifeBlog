@@ -5,7 +5,7 @@
  */
 package com.sg.lifeblogserver.dao;
 
-import com.sg.lifeblogserver.model.Post;
+import com.sg.lifeblogserver.model.Reply;
 import com.sg.lifeblogserver.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
@@ -16,61 +16,67 @@ import org.hibernate.query.Query;
  *
  * @author asmat
  */
-public class PostDaoImpl implements PostDao {
+public class ReplyDaoImpl implements ReplyDao {
 
+    private static final String GET_BY_POST = "SELECT r.* FROM Reply r "
+            + " INNER JOIN Post p on p.id = r.postid "
+            + " WHERE p.id = :postid";
+
+    private static final String GET_BY_USER = "SELECT r.* FROM Reply r "
+            + " INNER JOIN Post p on p.id = r.postid "
+            + " WHERE p.userid = :userid";
+    
     private Transaction tx;
-    private static final String GET_BY_CATEGORY = "Select p.* from Post p "
-            + " inner join Category c "
-            + " on p.categoryid = c.id "
-            + " where p.categoryid = :categoryId";
 
     @Override
-    public Post getById(long id) {
+    public Reply getById(long id) {
         try (Session session = HibernateUtil.getSession()) {
-            return session.get(Post.class, id);
+            return session.get(Reply.class, id);
         }
     }
 
     @Override
-    public List<Post> getAll() {
+    public List<Reply> getAllByPostId(long id) {
         try (Session session = HibernateUtil.getSession()) {
-            return session.createQuery("SELECT p FROM Post p").list();
-        }
-    }
-
-    @Override
-    public List<Post> getByCategory(long id) {
-        try (Session session = HibernateUtil.getSession()) {
-            Query query = session.createQuery(GET_BY_CATEGORY);
-            query.setParameter("categoryId", id);
+            Query query = session.createQuery(GET_BY_POST);
+            query.setParameter("postid", id);
             return query.list();
         }
     }
 
     @Override
-    public Post add(Post post) {
+    public List<Reply> getAllByUserId(long id) {
         try (Session session = HibernateUtil.getSession()) {
-            session.saveOrUpdate(post);
-            return post;
+            Query query = session.createQuery(GET_BY_USER);
+            query.setParameter("userid", id);
+            return query.list();
         }
     }
 
     @Override
-    public Post update(Post post) {
+    public Reply add(Reply reply) {
+        try (Session session = HibernateUtil.getSession()) {
+            session.saveOrUpdate(reply);
+            return reply;
+        }
+    }
+
+    @Override
+    public Reply update(Reply reply) {
         try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
-            session.update(post);
+            session.update(reply);
             session.flush();
             tx.commit();
-            return post;
+            return reply;
         }
     }
 
     @Override
     public void delete(long id) {
         try (Session session = HibernateUtil.getSession()) {
-            Post post = session.get(Post.class, id);
-            session.delete(post);
+            Reply reply = session.get(Reply.class, id);
+            session.delete(reply);
         }
     }
 }

@@ -6,10 +6,6 @@
 package com.sg.lifeblogserver.model;
 
 import java.time.LocalDate;
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 /**
  *
@@ -19,9 +15,9 @@ public class Reply {
 
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "postid", referencedColumnName = "id")
-    private Post post;
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "postid", referencedColumnName = "id")
+//    private Post post;
     
     private String reply;
     private LocalDate replydate;
@@ -36,13 +32,13 @@ public class Reply {
         this.id = id;
     }
 
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
+//    public Post getPost() {
+//        return post;
+//    }
+//
+//    public void setPost(Post post) {
+//        this.post = post;
+//    }
 
     public String getReply() {
         return reply;

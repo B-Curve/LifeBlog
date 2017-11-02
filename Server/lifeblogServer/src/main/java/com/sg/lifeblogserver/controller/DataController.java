@@ -63,15 +63,10 @@ public class DataController {
     
     @RequestMapping(value="/u/{username}", method=RequestMethod.GET)
     public ResponseEntity fetchUser(@PathVariable("username") String username){
-        User u = users.getUserByUsername(username);
+        User u = users.getByUsername(username);
         if(u == null) return ResponseEntity.badRequest()
                 .body("User not found.");
         return ResponseEntity.ok(u);
-        /*
-        I think it would be a good idea for us to add more things to the user table,
-        like join date, connections (to other users), blog posts(could be queried),
-        etc. That way we have more filler for the user page.
-        */
     }
     
     @RequestMapping(value="post/{postId}", method=RequestMethod.GET)

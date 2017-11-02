@@ -6,38 +6,60 @@
 package com.sg.lifeblogserver.dao;
 
 import com.sg.lifeblogserver.model.Category;
+import com.sg.lifeblogserver.util.HibernateUtil;
 import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author asmat
  */
-public class CategoryDaoImpl implements CategoryDao{
+public class CategoryDaoImpl implements CategoryDao {
+
+    private Transaction tx;
 
     @Override
     public List<Category> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Session session = HibernateUtil.getSession()) {
+            return session.createQuery("SELECT c FROM Category c").list();
+        }
     }
 
     @Override
-    public Category getById() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Category getById(long id) {
+        try (Session session = HibernateUtil.getSession()) {
+            return session.get(Category.class, id);
+        }
     }
 
     @Override
     public Category add(Category category) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Session session = HibernateUtil.getSession()) {
+            session.saveOrUpdate(category);
+            return category;
+        }
     }
 
     @Override
     public Category update(Category category) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Session session = HibernateUtil.getSession()) {
+            tx = session.beginTransaction();
+            session.update(category);
+            session.flush();
+            tx.commit();
+            return category;
+
+        }
     }
 
     @Override
-    public void delete(Category category) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(long id) {
+        try (Session session = HibernateUtil.getSession()) {
+            Category category = session.get(Category.class, id);
+            session.delete(category);
+
+        }
     }
-    
-    
+
 }

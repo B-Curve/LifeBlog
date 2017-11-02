@@ -41,7 +41,7 @@
     
     </http>
 
-<beans:bean id="webexpressionHandler" 
-            class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+    <beans:bean id="webexpressionHandler" 
+                class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
 
 </beans:beans>

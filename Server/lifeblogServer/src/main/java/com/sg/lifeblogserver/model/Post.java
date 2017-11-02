@@ -5,6 +5,8 @@
  */
 package com.sg.lifeblogserver.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -20,21 +23,25 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Post {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
-    @ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn( name = "userid", referencedColumnName = "id")
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "userid", referencedColumnName = "id")
     private User user;
 
-    @ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn( name = "categoryid", referencedColumnName = "id")
- 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "categoryid", referencedColumnName = "id")
+
     private Category category;
     private String title;
     private String body;
-    //private List<Reply> replies = new ArrayList<>(); <-- Thinking we need this...
+
+    @OneToMany(mappedBy ="reply", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Reply> replies;
+    
     private int likes;
 
     public long getId() {
@@ -84,5 +91,5 @@ public class Post {
     public void setLikes(int likes) {
         this.likes = likes;
     }
-    
+
 }
