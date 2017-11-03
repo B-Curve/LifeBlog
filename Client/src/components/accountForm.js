@@ -5,40 +5,66 @@ export default class AccountForm extends React.Component{
   constructor(){
     super();
     this.state = {
-      prompt: 'guest'
+      prompt: 'guest',
+      loggingIn: false,
+      username: '',
+      password: ''
     }
   }
 
-  animate(method){
-    alert(method);
+  login(){
+    this.setState({loggingIn: true});
   }
 
-  _getPageStatus(){
-    // if(this.state.prompt === 'guest'){
-    //   return(
-    //     <div className="accountPrompt">
-    //       <h1 className="headline">Hello, Guest!</h1>
-    //     <div className="button"
-    //         onMouseEnter={(e) => e.target.style.color = 'blue'}
-    //         onMouseLeave={(e) => e.target.style.color = 'white'}
-    //         onMouseDown={() => this.animate('login')}>Log in</div>
-    //       <div className="button"
-    //         onMouseEnter={(e) => e.target.style.color = 'blue'}
-    //         onMouseLeave={(e) => e.target.style.color = 'white'}
-    //         onMouseDown={() => this.animate('signup')}>Sign up</div>
-    //     </div>
-    //   );
-    // }
+  updateUsername(e){
+    let value = e.target.value;
+    this.setState({username: value});
+  }
+
+  updatePassword(e){
+    let value = e.target.value;
+    this.setState({password: value});
+  }
+
+  undoLogin(){
+    this.setState({loggingIn: false});
   }
 
   render(){
     return(
       <section className="body" style={{backgroundImage: "url('interior.jpg')"}}>
-        {this._getPageStatus()}
         <div className="image-description">
-          <h1></h1>
+          {this.state.loggingIn ?
+            <LoggingIn
+              username={this.state.username}
+              password={this.state.password}
+              updateUsername={this.updateUsername.bind(this)}
+              updatePassword={this.updatePassword.bind(this)}
+              undoLogin={this.undoLogin.bind(this)}
+            /> :
+            <GetButtons login={this.login.bind(this)} />}
         </div>
       </section>
     );
   }
+}
+
+const LoggingIn = (props) => {
+  return(
+    <div>
+      <input type="username" value={props.username} onChange={props.updateUsername} />
+      <input type="password" value={props.password} onChange={props.updatePassword} /><br />
+    <button type="button" className="accountButton">SUBMIT</button>
+  <button type="button" className="accountButton" onMouseDown={props.undoLogin}>GO BACK</button>
+    </div>
+  );
+}
+
+const GetButtons = (props) => {
+  return(
+    <div>
+      <button type="button" className="accountButton">SIGN UP</button>
+    <button type="button" className="accountButton" onMouseDown={props.login.bind(this)}>LOG IN</button>
+    </div>
+  );
 }

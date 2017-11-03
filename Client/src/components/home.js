@@ -16,7 +16,7 @@ export default class Home extends React.Component{
       titles: [],
       username: ''
     }
-    axios.get("rest/posts/category/1")
+    axios.get("http:///api/")
       .then((response) => {
         let title = response.data.shift();
         this.setState({
@@ -34,6 +34,14 @@ export default class Home extends React.Component{
       });
   }
 
+  _userLogIn(){
+    alert('Log In')
+  }
+
+  _userSignUp(){
+    alert('sign up')
+  }
+
   render(){
     return(
       <div>
@@ -45,12 +53,9 @@ export default class Home extends React.Component{
               onMouseLeave={(e) => e.target.style.color = 'black'}>Lifestyle Blog
             </h1>
           </Link>
-          <h3 className="header_h1 hr">
-            {this.state.loggedIn ? 'Signed In As: ' + this.state.username : 'Not Signed In'}
-          </h3>
         </header>
 
-        <Switch>=
+        <Switch>
           <Route exact path="/">
             <div>
               {this.state.loggedIn ? null : <AccountForm />}
