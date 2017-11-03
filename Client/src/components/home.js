@@ -11,35 +11,9 @@ export default class Home extends React.Component{
   constructor(){
     super();
     this.state = {
-      posts: [],
       loggedIn: false,
-      titles: [],
       username: ''
     }
-    axios.get("http:///api/")
-      .then((response) => {
-        let title = response.data.shift();
-        this.setState({
-          posts: [...this.state.posts, response.data],
-          titles: this.state.titles.concat(title)
-        });
-      });
-    axios.get("rest/posts/category/2")
-      .then((response) => {
-        let title = response.data.shift();
-        this.setState({
-          posts: [...this.state.posts, response.data],
-          titles: this.state.titles.concat(title)
-        });
-      });
-  }
-
-  _userLogIn(){
-    alert('Log In')
-  }
-
-  _userSignUp(){
-    alert('sign up')
   }
 
   render(){
@@ -59,12 +33,13 @@ export default class Home extends React.Component{
           <Route exact path="/">
             <div>
               {this.state.loggedIn ? null : <AccountForm />}
-              <Feed loggedIn={this.state.loggedIn} posts={this.state.posts} titles={this.state.titles} />
+              <Feed loggedIn={this.state.loggedIn} />
             </div>
           </Route>
           <Route path="/newPost">
             <div>{this.state.loggedIn ? <PostCreator /> : null}</div>
           </Route>
+          <Route path="/editPost" component={this.state.loggedIn ? null : PostCreator} />
         </Switch>
 
       </div>

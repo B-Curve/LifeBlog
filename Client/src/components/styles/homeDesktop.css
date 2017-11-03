@@ -125,10 +125,20 @@ body{
   text-align: center;
 }
 
+.accountInput{
+  display: inline;
+  width: 10em;
+  height: 2em;
+  border-radius: .25em;
+  border: 1px solid black;
+  margin: 0 1em;
+  text-align: center;
+}
+
 .accountButton{
   display: inline-block;
   width: 10em;
-  height: 4em;
+  height: 2.5em;
   border-top-right-radius: .5em;
   border-bottom-left-radius: .5em;
   border-left: 1px solid grey;
@@ -137,7 +147,7 @@ body{
   border-bottom: 1px solid black;
   background: black;
   color: white;
-  margin: 2em 20em;
+  margin: 2em 20em 0;
   opacity: .7;
   font-size: .85em;
   cursor: pointer;

@@ -18,6 +18,7 @@ export default class AccountForm extends React.Component{
 
   updateUsername(e){
     let value = e.target.value;
+    if(value.length > 16) return;
     this.setState({username: value});
   }
 
@@ -27,7 +28,11 @@ export default class AccountForm extends React.Component{
   }
 
   undoLogin(){
-    this.setState({loggingIn: false});
+    this.setState({
+      loggingIn: false,
+      username: '',
+      password: ''
+    });
   }
 
   render(){
@@ -52,10 +57,12 @@ export default class AccountForm extends React.Component{
 const LoggingIn = (props) => {
   return(
     <div>
-      <input type="username" value={props.username} onChange={props.updateUsername} />
-      <input type="password" value={props.password} onChange={props.updatePassword} /><br />
-    <button type="button" className="accountButton">SUBMIT</button>
-  <button type="button" className="accountButton" onMouseDown={props.undoLogin}>GO BACK</button>
+      <input type="username" className="accountInput" placeholder="Username..."
+        value={props.username} onChange={props.updateUsername} />
+      <input type="password" className="accountInput"  placeholder="Password..."
+        value={props.password} onChange={props.updatePassword} /><br />
+      <button type="button" className="accountButton">SUBMIT</button>
+      <button type="button" className="accountButton" onMouseDown={props.undoLogin}>GO BACK</button>
     </div>
   );
 }
@@ -64,7 +71,7 @@ const GetButtons = (props) => {
   return(
     <div>
       <button type="button" className="accountButton">SIGN UP</button>
-    <button type="button" className="accountButton" onMouseDown={props.login.bind(this)}>LOG IN</button>
+      <button type="button" className="accountButton" onMouseDown={props.login.bind(this)}>LOG IN</button>
     </div>
   );
 }
