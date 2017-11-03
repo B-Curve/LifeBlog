@@ -24,7 +24,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class UserDaoTest {
 
     UserDao userdao;
-    
+
     public UserDaoTest() {
     }
 
@@ -40,7 +40,7 @@ public class UserDaoTest {
     public void setUp() {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         userdao = ctx.getBean("userdao", UserDao.class);
-      //  DatabaseInitializer.setKnownGoodState();
+        DatabaseInitializer.setKnownGoodState();
     }
 
     @After
@@ -59,6 +59,18 @@ public class UserDaoTest {
      */
     @Test
     public void testGetByUsername() {
+        User user = new User();
+        user.setFirstname("admin");
+        user.setLastname("admin");
+        user.setUsername("admin");
+        user.setPassword("admin");
+        user.setEnabled(1);
+
+        User fromdao = userdao.add(user);
+        assertEquals(fromdao, user);
+
+        User confirmUser = userdao.getByUsername("admin");
+        assertNotNull(confirmUser);
     }
 
     /**
@@ -73,18 +85,15 @@ public class UserDaoTest {
      */
     @Test
     public void testAdd() {
-//        User user = new User();
-//        user.setFirstname("admin");
-//        user.setLastname("admin");
-//        user.setUsername("admin");
-//        user.setPassword("admin");
-//        user.setEnabled(1);
-//
-//        User fromdao = userdao.add(user);
-//        assertEquals(fromdao, user);
-        
-        User confirmUser = userdao.getByUsername("admin");
-       // assertEquals(confirmUser, user);
+        User user = new User();
+        user.setFirstname("admin");
+        user.setLastname("admin");
+        user.setUsername("admin");
+        user.setPassword("admin");
+        user.setEnabled(1);
+
+        User fromdao = userdao.add(user);
+        assertEquals(fromdao, user);
     }
 
     /**
@@ -92,6 +101,20 @@ public class UserDaoTest {
      */
     @Test
     public void testUpdate() {
+        User user = new User();
+        user.setFirstname("admin");
+        user.setLastname("admin");
+        user.setUsername("admin");
+        user.setPassword("admin");
+        user.setEnabled(1);
+
+        User fromdao = userdao.add(user);
+        assertEquals(fromdao, user);
+
+        user.setFirstname("Administrator");
+        User updatedUser = userdao.update(user);
+
+        assertEquals(user, updatedUser);
     }
 
     /**
@@ -99,32 +122,6 @@ public class UserDaoTest {
      */
     @Test
     public void testDelete() {
-    }
-
-    public class UserDaoImpl implements UserDao {
-
-        public List<User> getAll() {
-            return null;
-        }
-
-        public User getByUsername(String username) {
-            return null;
-        }
-
-        public User getById(int id) {
-            return null;
-        }
-
-        public User add(User user) {
-            return null;
-        }
-
-        public User update(User user) {
-            return null;
-        }
-
-        public void delete(long id) {
-        }
     }
 
 }

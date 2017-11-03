@@ -22,9 +22,6 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "postid", referencedColumnName = "id")
-//    private Post post;
     private String reply;
     private LocalDate replydate;
     private long replierid;
@@ -38,13 +35,6 @@ public class Reply {
         this.id = id;
     }
 
-//    public Post getPost() {
-//        return post;
-//    }
-//
-//    public void setPost(Post post) {
-//        this.post = post;
-//    }
     public String getReply() {
         return reply;
     }

@@ -18,7 +18,7 @@ import org.hibernate.query.Query;
  */
 public class UserDaoImpl implements UserDao {
 
-    private static final String GET_BY_USER_NAME = "FROM User as u "
+    private static final String GET_BY_USER_NAME = "SELECT u FROM User u "
             + " WHERE u.username = :username";
     private Transaction tx;
 
@@ -59,8 +59,7 @@ public class UserDaoImpl implements UserDao {
     public User update(User user) {
         try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
-            session.update(user);
-            session.flush();
+            session.saveOrUpdate(user);
             tx.commit();
             return user;
         }

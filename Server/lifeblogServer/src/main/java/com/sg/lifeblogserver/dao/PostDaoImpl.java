@@ -19,10 +19,19 @@ import org.hibernate.query.Query;
 public class PostDaoImpl implements PostDao {
 
     private Transaction tx;
-    private static final String GET_BY_CATEGORY = "Select p.* from Post p "
-            + " inner join Category c "
-            + " on p.categoryid = c.id "
-            + " where p.categoryid = :categoryId";
+    
+    //Query to retrieve all post for a given category in descending order of poastdate
+    private static final String GET_BY_CATEGORY = "Select p from Post p "
+            + " inner join p.category as c "
+            + " where c.id = :categoryId "
+            + " order by p.postdate desc ";
+
+    //Query to retrieve most liked posts for a category
+    private static final String GET_TOP_FIVE = "Select p from Post p "
+            + " inner join p.category as c "
+            + " where c.id = :categoryId "
+            + " order by likes desc ";
+           
 
     @Override
     public Post getById(long id) {
@@ -43,6 +52,17 @@ public class PostDaoImpl implements PostDao {
         try (Session session = HibernateUtil.getSession()) {
             Query query = session.createQuery(GET_BY_CATEGORY);
             query.setParameter("categoryId", id);
+//            query.setFirstResult((int)offset);
+            query.setMaxResults(20);
+            return query.list();
+        }
+    }
+
+    @Override
+    public List<Post> getTopFiveAllCategory() {
+        try (Session session = HibernateUtil.getSession()) {
+            Query query = session.createQuery(GET_TOP_FIVE);
+            //query.setParameter("categoryId", id);
             return query.list();
         }
     }
@@ -51,7 +71,7 @@ public class PostDaoImpl implements PostDao {
     public Post add(Post post) {
         try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
-            session.save(post);
+            session.saveOrUpdate(post);
             tx.commit();
             return post;
         }

@@ -6,6 +6,7 @@
 package com.sg.lifeblogserver.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -14,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author asmat
  */
 @Controller
+@CrossOrigin
 public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String showLoginForm() {
-        return "login";
+    public void showLoginForm() {
+        //return "login";
     }
 }

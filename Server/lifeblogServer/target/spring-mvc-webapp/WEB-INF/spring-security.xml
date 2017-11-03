@@ -36,8 +36,8 @@
                        access="ROLE_USER"/>
         <intercept-url pattern="/admin" 
                        access="ROLE_ADMIN"/>        
-        <intercept-url pattern="/**"
-                       access="ROLE_USER"/> 
+<!--        <intercept-url pattern="/**"
+                       access="ROLE_USER"/> -->
     
     </http>
 
