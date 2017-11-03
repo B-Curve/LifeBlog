@@ -34,8 +34,8 @@ public class Post {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "categoryid", referencedColumnName = "id")
-
     private Category category;
+
     private String title;
     private String body;
 

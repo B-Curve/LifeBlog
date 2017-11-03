@@ -50,7 +50,9 @@ public class PostDaoImpl implements PostDao {
     @Override
     public Post add(Post post) {
         try (Session session = HibernateUtil.getSession()) {
-            session.saveOrUpdate(post);
+            tx = session.beginTransaction();
+            session.save(post);
+            tx.commit();
             return post;
         }
     }
@@ -69,8 +71,10 @@ public class PostDaoImpl implements PostDao {
     @Override
     public void delete(long id) {
         try (Session session = HibernateUtil.getSession()) {
+            tx = session.beginTransaction();
             Post post = session.get(Post.class, id);
             session.delete(post);
+            tx.commit();
         }
     }
 }

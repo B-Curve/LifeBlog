@@ -56,7 +56,9 @@ public class ReplyDaoImpl implements ReplyDao {
     @Override
     public Reply add(Reply reply) {
         try (Session session = HibernateUtil.getSession()) {
-            session.saveOrUpdate(reply);
+            tx = session.beginTransaction();
+            session.save(reply);
+            tx.commit();
             return reply;
         }
     }
@@ -75,8 +77,10 @@ public class ReplyDaoImpl implements ReplyDao {
     @Override
     public void delete(long id) {
         try (Session session = HibernateUtil.getSession()) {
+            tx = session.beginTransaction();
             Reply reply = session.get(Reply.class, id);
             session.delete(reply);
+            tx.commit();
         }
     }
 }

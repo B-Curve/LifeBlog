@@ -36,7 +36,9 @@ public class CategoryDaoImpl implements CategoryDao {
     @Override
     public Category add(Category category) {
         try (Session session = HibernateUtil.getSession()) {
-            session.saveOrUpdate(category);
+            tx = session.beginTransaction();
+            session.save(category);
+            tx.commit();
             return category;
         }
     }
@@ -56,8 +58,10 @@ public class CategoryDaoImpl implements CategoryDao {
     @Override
     public void delete(long id) {
         try (Session session = HibernateUtil.getSession()) {
+            tx = session.beginTransaction();
             Category category = session.get(Category.class, id);
             session.delete(category);
+            tx.commit();
 
         }
     }

@@ -6,24 +6,30 @@
 package com.sg.lifeblogserver.model;
 
 import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author asmat
  */
+@Entity
 public class Reply {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
 //    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    @JoinColumn(name = "postid", referencedColumnName = "id")
 //    private Post post;
-    
     private String reply;
     private LocalDate replydate;
     private long replierid;
     private long likes;
-    
+
     public long getId() {
         return id;
     }
@@ -39,7 +45,6 @@ public class Reply {
 //    public void setPost(Post post) {
 //        this.post = post;
 //    }
-
     public String getReply() {
         return reply;
     }

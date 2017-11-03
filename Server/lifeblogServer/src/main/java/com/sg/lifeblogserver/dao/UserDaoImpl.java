@@ -18,7 +18,7 @@ import org.hibernate.query.Query;
  */
 public class UserDaoImpl implements UserDao {
 
-    private static final String GET_BY_USER_NAME = "SELECT u.* FROM User u "
+    private static final String GET_BY_USER_NAME = "FROM User as u "
             + " WHERE u.username = :username";
     private Transaction tx;
 
@@ -34,7 +34,7 @@ public class UserDaoImpl implements UserDao {
         try (Session session = HibernateUtil.getSession()) {
             Query query = session.createQuery(GET_BY_USER_NAME);
             query.setParameter("username", username);
-            return (User)query.getSingleResult();
+            return (User)query.uniqueResult();
         }
     }
 
@@ -48,7 +48,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User add(User user) {
         try (Session session = HibernateUtil.getSession()) {
+            tx = session.beginTransaction();
             session.saveOrUpdate(user);
+            tx.commit();
             return user;
         }
     }
@@ -67,8 +69,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void delete(long id) {
         try (Session session = HibernateUtil.getSession()) {
+            tx = session.beginTransaction();
             User user = session.get(User.class, id);
             session.delete(user);
+            tx.commit();
         }
     }
 }
