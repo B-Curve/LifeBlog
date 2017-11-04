@@ -1,0 +1,74 @@
+.createPostHeader{
+  width: 30em;
+  margin: 0 auto;
+}
+
+.createPostBody{
+  margin: 5em auto;
+  width: 40em;
+  text-align: center;
+}
+
+.postBodyHead{
+  margin: 0;
+  border: 1px solid black;
+  border-top-right-radius: .33em;
+  border-top-left-radius: .33em;
+  border-bottom: 0;
+}
+
+.createPostTitle{
+  width: 30em;
+  font-size: 1.33em;
+  padding: .33em;
+  border: 1px solid grey;
+}
+
+.createPostTitle:focus{
+  outline: none;
+  background: #f9f9f9;
+}
+
+.postBody{
+  font-size: 1em;
+  padding: .33em;
+  width: 100%;
+  resize: none;
+  height: 30em;
+}
+
+.postBody:focus{
+  outline: none;
+  background: #f9f9f9;
+}
+
+.postCategory{
+  width: 50%;
+  height: 3em;
+  margin: 2em 0;
+}
+
+.postCategory:focus{
+  outline: none;
+}
+
+.postSubmit{
+  width: 40%;
+  height: 5em;
+  border: 1px solid black;
+  background: #afa;
+  border-radius: .5em;
+  cursor: pointer;
+}
+
+.goBack{
+  padding: 1em;
+  background: #ff4;
+  border: 1px solid black;
+  border-radius: .4em;
+  color: black;
+  text-decoration: none;
+  position: fixed;
+  left: 5em;
+  top: 40%;
+}

@@ -27,6 +27,9 @@ export default class Home extends React.Component{
               onMouseLeave={(e) => e.target.style.color = 'black'}>Lifestyle Blog
             </h1>
           </Link>
+          <h1 className="header_h1 hr" style={{fontSize: '1em'}}>
+            Brandon Kervin
+          </h1>
         </header>
 
         <Switch>
@@ -37,10 +40,19 @@ export default class Home extends React.Component{
             </div>
           </Route>
           <Route path="/newPost">
-            <div>{this.state.loggedIn ? <PostCreator /> : null}</div>
+            <div>{this.state.loggedIn ? <PostCreator /> : <PostCreator />}</div>
           </Route>
-          <Route path="/editPost" component={this.state.loggedIn ? null : PostCreator} />
         </Switch>
+
+        <h1 style={{textAlign:'center'}}>asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+      asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+    asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+  asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks</h1>
 
       </div>
     );

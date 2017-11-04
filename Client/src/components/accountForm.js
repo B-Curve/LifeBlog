@@ -37,7 +37,7 @@ export default class AccountForm extends React.Component{
 
   render(){
     return(
-      <section className="body" style={{backgroundImage: "url('interior.jpg')"}}>
+      <section className="body" style={{backgroundImage: "url('fashion.jpg')"}}>
         <div className="image-description">
           {this.state.loggingIn ?
             <LoggingIn
