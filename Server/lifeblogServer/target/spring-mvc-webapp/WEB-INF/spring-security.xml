@@ -8,14 +8,15 @@
     
     <authentication-manager>
         <authentication-provider>
-            <user-service>
-                <user name="user" 
-                      password="user" 
-                      authorities="ROLE_USER" />
-                <user name="admin" 
-                      password="admin" 
-                      authorities="ROLE_USER, ROLE_ADMIN" />
-            </user-service>
+            <!--<password-encoder ref="encoder"/>-->
+            <jdbc-user-service id="userService"
+                               data-source-ref="dataSource"
+                               users-by-username-query=
+ "select username, password, enabled from User where username=?"
+                               authorities-by-username-query=
+"select u.username, r.role from User u, Role r, UserRole ur
+where u.id = ur.userid and r.id = ur.roleid and u.username =?" />
+            
         </authentication-provider>
     </authentication-manager>
 
@@ -36,12 +37,24 @@
                        access="ROLE_USER"/>
         <intercept-url pattern="/admin" 
                        access="ROLE_ADMIN"/>        
-<!--        <intercept-url pattern="/**"
-                       access="ROLE_USER"/> -->
+        <intercept-url pattern="/api/post/category/*"
+                       access="ROLE_USER"/>
     
     </http>
 
     <beans:bean id="webexpressionHandler" 
                 class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+
+<!--    <beans:bean id="userService"
+                class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+        <beans:property name="dataSource" ref="dataSource"/>
+    </beans:bean>-->
+    
+    <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <beans:property name="url" value="jdbc:mysql://localhost/lifeblog?serverTimezone=UTC"/>
+        <beans:property name="username" value="root"/>
+        <beans:property name="password" value="root"/>
+    </beans:bean>
 
 </beans:beans>

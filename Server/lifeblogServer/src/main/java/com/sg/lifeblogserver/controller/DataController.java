@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -71,13 +70,22 @@ public class DataController {
         return ResponseEntity.ok(user);
     }
 
-    @RequestMapping(value = "post/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public ResponseEntity fetchPost(@PathVariable("id") int id) {
         Post post = postDao.getById(id);
         if (post == null) {
             return ResponseEntity.badRequest()
                     .body("Post #" + id + " not found.");
         }
+        return ResponseEntity.ok(post);
+    }
+    
+    @RequestMapping(value = "/post", method = RequestMethod.PUT)
+    public ResponseEntity createPost(@RequestBody Post post) {
+//        if (post == null) {
+//            return ResponseEntity.badRequest()
+//                    .body("Post #" + id + " not found.");
+//        }
         return ResponseEntity.ok(post);
     }
 

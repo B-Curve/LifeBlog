@@ -10,7 +10,6 @@ import com.sg.lifeblogserver.model.Post;
 import com.sg.lifeblogserver.model.User;
 import com.sg.lifeblogserver.util.DatabaseInitializer;
 import java.time.LocalDate;
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

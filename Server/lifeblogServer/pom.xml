@@ -142,7 +142,11 @@
             <artifactId>javax.el</artifactId>
             <version>2.2.4</version>
         </dependency>           
-                                
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.3.1</version>
+        </dependency>
     </dependencies>
 
     <build>
