@@ -11,6 +11,9 @@ import com.sg.lifeblogserver.dao.CategoryDao;
 import com.sg.lifeblogserver.dao.UserDao;
 import com.sg.lifeblogserver.dao.PostDao;
 import com.sg.lifeblogserver.model.Category;
+import com.sg.lifeblogserver.model.request.PostRequest;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -81,11 +84,22 @@ public class DataController {
     }
     
     @RequestMapping(value = "/post", method = RequestMethod.PUT)
-    public ResponseEntity createPost(@RequestBody Post post) {
-//        if (post == null) {
-//            return ResponseEntity.badRequest()
-//                    .body("Post #" + id + " not found.");
-//        }
+    public ResponseEntity createPost(@RequestBody PostRequest postRequest) {
+
+        Post post = new Post();
+        post.setTitle(postRequest.getTitle());
+        post.setBody(postRequest.getBody());
+        
+        User user = userDao.getById(Long.parseLong(postRequest.getUser()));
+        post.setUser(user);
+        
+        Category category = categoryDao.getById(Long.parseLong(postRequest.getCategory()));
+        post.setCategory(category);
+        
+        LocalDate postDate =  LocalDate.parse(postRequest.getPostDate(), DateTimeFormatter.ISO_DATE);
+        post.setPostdate(postDate);
+        
+        postDao.add(post);
         return ResponseEntity.ok(post);
     }
 

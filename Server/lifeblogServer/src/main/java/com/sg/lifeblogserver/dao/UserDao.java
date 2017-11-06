@@ -18,7 +18,7 @@ public interface UserDao {
 
     User getByUsername(String username);
 
-    User getById(int id);
+    User getById(long id);
     
     User add(User user);
     
