@@ -11,27 +11,9 @@ export default class Home extends React.Component{
   constructor(){
     super();
     this.state = {
-      posts: [],
       loggedIn: false,
-      titles: [],
       username: ''
     }
-    axios.get("rest/posts/category/1")
-      .then((response) => {
-        let title = response.data.shift();
-        this.setState({
-          posts: [...this.state.posts, response.data],
-          titles: this.state.titles.concat(title)
-        });
-      });
-    axios.get("rest/posts/category/2")
-      .then((response) => {
-        let title = response.data.shift();
-        this.setState({
-          posts: [...this.state.posts, response.data],
-          titles: this.state.titles.concat(title)
-        });
-      });
   }
 
   render(){
@@ -45,22 +27,32 @@ export default class Home extends React.Component{
               onMouseLeave={(e) => e.target.style.color = 'black'}>Lifestyle Blog
             </h1>
           </Link>
-          <h3 className="header_h1 hr">
-            {this.state.loggedIn ? 'Signed In As: ' + this.state.username : 'Not Signed In'}
-          </h3>
+          <h1 className="header_h1 hr" style={{fontSize: '1em'}}>
+            Brandon Kervin
+          </h1>
         </header>
 
-        <Switch>=
+        <Switch>
           <Route exact path="/">
             <div>
               {this.state.loggedIn ? null : <AccountForm />}
-              <Feed loggedIn={this.state.loggedIn} posts={this.state.posts} titles={this.state.titles} />
+              <Feed loggedIn={this.state.loggedIn} />
             </div>
           </Route>
           <Route path="/newPost">
-            <div>{this.state.loggedIn ? <PostCreator /> : null}</div>
+            <div>{this.state.loggedIn ? <PostCreator /> : <PostCreator />}</div>
           </Route>
         </Switch>
+
+        <h1 style={{textAlign:'center'}}>asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+      asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+    asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+  asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks</h1>
 
       </div>
     );
