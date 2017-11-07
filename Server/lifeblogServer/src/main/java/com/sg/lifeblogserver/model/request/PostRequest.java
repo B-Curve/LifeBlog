@@ -11,11 +11,29 @@ package com.sg.lifeblogserver.model.request;
  */
 public class PostRequest {
 
+    private String postId; //Used only for updates
     private String user;
     private String category;
     private String postDate;
     private String title;
     private String body;
+    private String likes;
+
+    public String getLikes() {
+        return likes;
+    }
+
+    public void setLikes(String likes) {
+        this.likes = likes;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
 
     public String getUser() {
         return user;
