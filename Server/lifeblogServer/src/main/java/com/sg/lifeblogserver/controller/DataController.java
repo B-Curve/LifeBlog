@@ -32,19 +32,19 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RequestMapping("/api")
 public class DataController {
-
+    
     @Autowired
     CategoryDao categoryDao;
     @Autowired
     UserDao userDao;
     @Autowired
     PostDao postDao;
-
+    
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public ResponseEntity fetchCategories() {
         return ResponseEntity.ok(categoryDao.getAll());
     }
-
+    
     @RequestMapping(value = "/post/category/{id}", method = RequestMethod.GET)
     public ResponseEntity fetchPostsCategory(@PathVariable("id") long id) { //, @RequestHeader("offset") long offset) {
 
@@ -56,17 +56,17 @@ public class DataController {
         List<Post> posts = postDao.getByCategory(id);
         return ResponseEntity.ok(posts);
     }
-
+    
     @RequestMapping(value = "/post/category/", method = RequestMethod.GET)
-    public ResponseEntity fetchPostsAllCategory() { 
-
+    public ResponseEntity fetchPostsAllCategory() {
+        
         List<Post> posts = postDao.getTopFiveAllCategory();
         return ResponseEntity.ok(posts);
     }
-
+    
     @RequestMapping(value = "/post/user/{id}", method = RequestMethod.GET)
     public ResponseEntity fetchPostsUser(@PathVariable("id") long id) {
-
+        
         User user = userDao.getById(id);
         if (user == null) {
             return ResponseEntity.badRequest()
@@ -75,7 +75,7 @@ public class DataController {
         List<Post> posts = postDao.getByUser(id);
         return ResponseEntity.ok(posts);
     }
-
+    
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public ResponseEntity fetchPost(@PathVariable("id") int id) {
         Post post = postDao.getById(id);
@@ -85,34 +85,54 @@ public class DataController {
         }
         return ResponseEntity.ok(post);
     }
-
+    
+    @RequestMapping(value = "/post/{id}", method = RequestMethod.PUT)
+    public ResponseEntity updatePost(@PathVariable("id") long id, @RequestBody PostRequest postRequest) {
+        
+        Post post = postDao.getById(id);
+        if (post == null) {
+            return ResponseEntity.badRequest()
+                    .body("Post #" + id + " not found.");
+        }
+        
+        if (!postRequest.getTitle().isEmpty()) {
+            post.setTitle(postRequest.getTitle());
+        }
+        if (!postRequest.getBody().isEmpty()) {
+            post.setBody(postRequest.getBody());
+        }
+        if (!postRequest.getCategory().isEmpty()) {
+            Category category = categoryDao.getById(Long.parseLong(postRequest.getCategory()));
+            post.setCategory(category);
+        }
+        
+        if (!postRequest.getLikes().isEmpty()) {
+            post.setLikes(Integer.parseInt(postRequest.getLikes()));
+        }
+        postDao.update(post);
+        return ResponseEntity.ok(post);
+    }
+    
     @RequestMapping(value = "/post", method = RequestMethod.PUT)
     public ResponseEntity createPost(@RequestBody PostRequest postRequest) {
 
+        //Validate the Post
         Post post = new Post();
         post.setTitle(postRequest.getTitle());
         post.setBody(postRequest.getBody());
-
+        
         User user = userDao.getById(Long.parseLong(postRequest.getUser()));
         post.setUser(user);
-
+        
         Category category = categoryDao.getById(Long.parseLong(postRequest.getCategory()));
         post.setCategory(category);
-
+        
         LocalDate postDate = LocalDate.parse(postRequest.getPostDate(), DateTimeFormatter.ISO_DATE);
         post.setPostdate(postDate);
-
+        
         postDao.add(post);
         return ResponseEntity.ok(post);
     }
-
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public ResponseEntity fetchUserById(@PathVariable("id") int id) {
-        User u = userDao.getById(id);
-        if (u == null) {
-            return ResponseEntity.badRequest().body("User does not exist.");
-        }
-        return ResponseEntity.ok(u);
-    }
-
+    
+    
 }
