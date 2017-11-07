@@ -7,6 +7,9 @@ package com.sg.lifeblogserver.controller;
 
 import com.sg.lifeblogserver.dao.UserDao;
 import com.sg.lifeblogserver.model.User;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import javax.ws.rs.QueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,15 +31,26 @@ public class UserController {
     @Autowired
     UserDao userDao;
     
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ResponseEntity authenticateUser(@QueryParam("username") String username, @QueryParam("password") String password) {
-        User validUser = userDao.getByUsername(username); 
-        if (validUser == null)
-        {
-            return ResponseEntity.badRequest()
-                    .body("Username or password incorrect.");
+    public static Map<String, User> jwt = new HashMap<>();
+    public static String getRandomString(){
+        String all = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder builder = new StringBuilder();
+        Random r = new Random();
+        while(builder.length() < 128){
+            int index = (int) (r.nextFloat() * all.length());
+            builder.append(all.charAt(index));
         }
-        return ResponseEntity.ok(validUser);
+        return builder.toString();
+    }
+    
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseEntity authenticateUser(@QueryParam("u") String username, @QueryParam("p") String password) {
+        User validUser = userDao.getByUsername(username); 
+        if (validUser == null) return ResponseEntity.badRequest().body("Username or password incorrect.");
+        if(!validUser.getPassword().equals(password)) return ResponseEntity.badRequest().body("Password is Incorrect.");
+        String key = getRandomString();
+        jwt.put(key, validUser);
+        return ResponseEntity.ok(key);
     }
     
     @RequestMapping(value = "/user/{username}", method = RequestMethod.GET)
@@ -47,6 +61,12 @@ public class UserController {
                     .body("User not found.");
         }
         return ResponseEntity.ok(user);
+    }
+    
+    @RequestMapping(value = "/token/{token}", method = RequestMethod.GET)
+    public ResponseEntity  fetchUserByLoginToken(@PathVariable("token") String token){
+        if(!jwt.containsKey(token)) return ResponseEntity.badRequest().body("ERROR");
+        return ResponseEntity.ok(jwt.get(token));
     }
 
 }

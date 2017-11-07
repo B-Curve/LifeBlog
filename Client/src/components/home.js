@@ -16,17 +16,28 @@ class Home extends React.Component{
   constructor(){
     super();
     this.state = {
-      loggedIn: true,
+      loggedIn: false,
       username: '',
-      loginToken: null
+      loginToken: null,
+      user: []
     }
   }
 
   componentDidMount = () => {
-    if(this.props.token === null) console.log("NULL!");
-    return;
-    console.log(this.props.token);
+    if(this.props.token !== null){
+      this.setState({loggedIn: true})
+    }else{return;}
+    axios.get('http://localhost:8080/lifeblogServer/token/'+this.props.token)
+      .then((response) => {
+        this.setState({user: response.data});
+    })
   }
+
+  updateToken = (value) => {
+    this.setState({loginToken: value});
+    this.props.applyLoginToken(value);
+    if(value.length == 128) this.setState({loggedIn: true});
+  };
 
   render(){
     return(
@@ -40,14 +51,14 @@ class Home extends React.Component{
             </h1>
           </Link>
           <h1 className="header_h1 hr" style={{fontSize: '1em'}}>
-            Brandon Kervin
+            {this.state.loggedIn ? this.state.user.username : "Not Signed In"} <span>↓</span>
           </h1>
         </header>
 
         <Switch>
           <Route exact path="/">
             <div>
-              {this.state.loggedIn ? null : <AccountForm />}
+              {this.state.loggedIn ? null : <AccountForm token={this.updateToken.bind(this)} />}
               <Feed loggedIn={this.state.loggedIn} />
             </div>
           </Route>
@@ -72,7 +83,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return{
-    //applyLoginToken: () => dispatch(applyToken("HjhkD7BF8asdfn"))
+    applyLoginToken: (value) => dispatch(applyToken(value))
   };
 }
 

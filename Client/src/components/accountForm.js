@@ -1,4 +1,7 @@
 import React from 'react';
+import axios from 'axios';
+
+const host = "http://localhost:8080/lifeblogServer/";
 
 export default class AccountForm extends React.Component{
 
@@ -35,6 +38,13 @@ export default class AccountForm extends React.Component{
     });
   }
 
+  submitLogin(){
+    axios.post(host+"login?username="+this.state.username+"&password="+this.state.password)
+      .then((response) => {
+        this.props.token(response.data);
+      });
+  }
+
   render(){
     return(
       <section className="body" style={{backgroundImage: "url('fashion.jpg')"}}>
@@ -46,6 +56,7 @@ export default class AccountForm extends React.Component{
               updateUsername={this.updateUsername.bind(this)}
               updatePassword={this.updatePassword.bind(this)}
               undoLogin={this.undoLogin.bind(this)}
+              loginUser={this.submitLogin.bind(this)}
             /> :
             <GetButtons login={this.login.bind(this)} />}
         </div>
@@ -61,7 +72,7 @@ const LoggingIn = (props) => {
         value={props.username} onChange={props.updateUsername} />
       <input type="password" className="accountInput"  placeholder="Password..."
         value={props.password} onChange={props.updatePassword} /><br />
-      <button type="button" className="accountButton">SUBMIT</button>
+      <button type="button" className="accountButton" onMouseDown={props.loginUser}>SUBMIT</button>
       <button type="button" className="accountButton" onMouseDown={props.undoLogin}>GO BACK</button>
     </div>
   );
