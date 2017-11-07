@@ -3,6 +3,7 @@ import { Route, Link, Switch } from 'react-router-dom';
 import axios from 'axios';
 import AccountForm from './accountForm';
 import PostCreator from './postCreator';
+import Account from './account';
 import { connect } from 'react-redux';
 import { applyToken } from '../storeFunctions';
 import Feed from './feed';
@@ -15,7 +16,7 @@ class Home extends React.Component{
   constructor(){
     super();
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
       username: '',
       loginToken: null
     }
@@ -53,30 +54,10 @@ class Home extends React.Component{
           <Route path="/newPost">
             <div>{this.state.loggedIn ? <PostCreator /> : <PostCreator />}</div>
           </Route>
-          <Route path="/post">
-            <div>
-
-            </div>
+          <Route path="/account">
+            <div>{this.state.loggedIn ? <Account /> : null}</div>
           </Route>
         </Switch>
-
-        <h1 style={{textAlign:'center'}}>asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlksasdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks</h1>
 
       </div>
     );

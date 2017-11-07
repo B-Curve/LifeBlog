@@ -193,10 +193,70 @@ body{
   text-decoration: none;
 }
 
-.post-list{
-  display: inline-block;
+.post-section{
+  display: block;
+  text-align: center;
+  list-style: none;
+  width: 80vw;
+  margin: 2em auto 0;
 }
 
-.post-section{
-  display: inline;
+.section-post{
+  display: inline-block;
+  width: 30%;
+  height: 20em;
+  margin: 0 1em;
+}
+
+.post-header{
+  margin: 0;
+  border: 1px solid black;
+  border-top-right-radius: .5em;
+  border-top-left-radius: .5em;
+}
+
+.post-body{
+  position: relative;
+  border: 1px solid black;
+  height: 14em;
+}
+
+.post-category{
+  position: absolute;
+  bottom: -1.9em;
+  width: 100%;
+  margin: 0;
+  border: 1px solid black;
+}
+
+.post-likes{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding-left: .2em;
+  font-size: 1.33em;
+}
+
+.post-date{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding: .2em;
+}
+
+.post-text{
+  position: absolute;
+  top: 0;
+  left: 5%;
+  height: 12em;
+  width: 90%;
+  margin: 0 auto;
+  border-bottom: 1px solid black;
+  text-align: left;
+}
+
+.upvote{
+  cursor: pointer;
 }

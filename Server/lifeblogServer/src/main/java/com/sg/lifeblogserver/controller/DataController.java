@@ -98,5 +98,12 @@ public class DataController {
         postDao.add(post);
         return ResponseEntity.ok(post);
     }
+    
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public ResponseEntity fetchUserById(@PathVariable("id") int id){
+        User u = userDao.getById(id);
+        if(u == null) return ResponseEntity.badRequest().body("User does not exist.");
+        return ResponseEntity.ok(u);
+    }
 
 }

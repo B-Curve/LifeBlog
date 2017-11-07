@@ -70,25 +70,36 @@ export default class Feed extends React.Component{
     super();
 
     this.state = {
-      posts: [],
+      posts1: [],
       categories: [],
       titles: []
     }
-    axios.get(host+"/post/1002")
+    axios.get(host+"post/1002")
       .then((response) => {
-        console.log(response.data);
+        for(let i = 0 ; i < 5 ; i++){
+          this.setState({posts1: this.state.posts1.concat(response.data)});
+        }
       })
   }
 
 
 
   render(){
+    const P1 = this.state.posts1.map((item, index) =>
+      <li className="section-post" key={index}>
+        <h1 className="post-header">{item.title}</h1>
+      <div className="post-body">
+        <p className="post-category">{item.category.name}</p>
+      <p className="post-likes"><span className="upvote">👍</span> {item.likes}</p>
+      <p className="post-text">{item.body}</p>
+    <p className="post-date">Post Date: {item.postdate.dayOfMonth}-{item.postdate.monthValue}-{item.postdate.year}</p>
+      </div>
+      </li>
+  );
     return(
       <div>
-        <ul className="post-list">
-          <ul className="post-section">
-
-          </ul>
+        <ul className="post-section">
+          {P1}
         </ul>
       </div>
     );
