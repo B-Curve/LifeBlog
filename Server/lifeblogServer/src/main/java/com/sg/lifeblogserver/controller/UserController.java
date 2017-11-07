@@ -31,7 +31,8 @@ public class UserController {
     @Autowired
     UserDao userDao;
     
-    public static Map<String, User> jwt = new HashMap<>();
+    //KEY = TOKEN, OBJECT = USER_ID
+    public static Map<String, Long> jwt = new HashMap<>();
     public static String getRandomString(){
         String all = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder builder = new StringBuilder();
@@ -49,7 +50,7 @@ public class UserController {
         if (validUser == null) return ResponseEntity.badRequest().body("Username or password incorrect.");
         if(!validUser.getPassword().equals(password)) return ResponseEntity.badRequest().body("Password is Incorrect.");
         String key = getRandomString();
-        jwt.put(key, validUser);
+        jwt.put(key, validUser.getId());
         return ResponseEntity.ok(key);
     }
     
@@ -66,7 +67,7 @@ public class UserController {
     @RequestMapping(value = "/token/{token}", method = RequestMethod.GET)
     public ResponseEntity  fetchUserByLoginToken(@PathVariable("token") String token){
         if(!jwt.containsKey(token)) return ResponseEntity.badRequest().body("ERROR");
-        return ResponseEntity.ok(jwt.get(token));
+        return ResponseEntity.ok(userDao.getById(jwt.get(token)));
     }
 
 }

@@ -34,8 +34,8 @@ where u.id = ur.userid and r.id = ur.roleid and u.username =?" />
                        access="ROLE_USER"/>
         <intercept-url pattern="/admin" 
                        access="ROLE_ADMIN"/>        
-        <intercept-url pattern="/api/post/category/*"
-                       access="ROLE_USER"/>
+<!--        <intercept-url pattern="/api/post/category/*"
+                       access="ROLE_USER"/>-->
 <!--        <intercept-url pattern="/login" 
                        access="ROLE_USER"/>-->
     

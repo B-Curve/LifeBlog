@@ -8,15 +8,29 @@
   width: 25%;
 }
 
+.right-side{
+  float: right;
+  width: 75%;
+}
+
 .username{
   width: 100%;
   text-align: left;
+  margin: 3em 0;
 }
 
-.username h1{
-  margin: 0;
+.username h3{
   text-align: left;
   padding-left: .5em;
+}
+
+.username h4{
+  text-align: left;
+  padding-left: .5em;
+}
+
+.user-details{
+
 }
 
 .name{
@@ -38,4 +52,23 @@
 
 .role{
   text-indent: 1.5em;
+}
+
+.posts{
+  display: block;
+  list-style: none;
+}
+
+.posts-header{
+  text-align: center;
+  width: 96%;
+  text-decoration: underline;
+}
+
+.post{
+  display: inline-block;
+  width: 40%;
+  height: 20em;
+  border: 1px solid black;
+  margin: 0 3%;
 }

@@ -15,23 +15,13 @@ export default class PostCreator extends React.Component{
       postTitle: '',
       categories: []
     }
-    axios.get('http://localhost:8080/lifeblogServer/login?username=abc&password=DoB1WCzh')
+  }
+
+  componentWillMount(){
+    axios.get(host+"categories")
       .then((response) => {
-        console.log(response);
+        this.setState({categories: response.data});
       })
-      .catch((error) => {
-        console.log(error);
-      });
-    axios.put(host+'post', {
-      user: '1',
-      title: 'Default Title',
-      body: 'Default Body',
-      category: '1',
-      postDate: '2012-12-12'
-    })
-      .then((response) => {
-        console.log(response);
-      });
   }
 
   updatePostBody(e){
@@ -46,13 +36,6 @@ export default class PostCreator extends React.Component{
     this.setState({postTitle: title});
   }
 
-  _populateCategories(){
-    axios.get(host+"categories")
-      .then((response) => {
-        this.setState({categories: response.data});
-      });
-  }
-
   render(){
     return(
       <div>
@@ -64,12 +47,9 @@ export default class PostCreator extends React.Component{
           <p>{this.state.postTitle.length}/255</p>
         <select defaultValue={1} className="postCategory">
           <option disabled value="1">Select Category...</option>
-        {/* OPTION TAGS WILL BE FILLED WITH _populateCategories */}
-          <option value="2">Home</option>
-          <option value="2">Home</option>
-          <option value="2">Home</option>
-          <option value="2">Home</option>
-          <option value="2">Home</option>
+          {this.state.categories.map((item, index) => {
+            return <option key={index} value={item.id}>{item.name}</option>
+          })}
         </select>
           <h1 className="postBodyHead">Post Body</h1>
           <textarea

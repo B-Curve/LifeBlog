@@ -205,7 +205,7 @@ body{
   display: inline-block;
   width: 30%;
   height: 20em;
-  margin: 0 1em;
+  margin: .5em 1em;
 }
 
 .post-header{
@@ -213,6 +213,9 @@ body{
   border: 1px solid black;
   border-top-right-radius: .5em;
   border-top-left-radius: .5em;
+  height: 2em;
+  overflow: scroll;
+  line-height: 2em;
 }
 
 .post-body{
@@ -255,8 +258,44 @@ body{
   margin: 0 auto;
   border-bottom: 1px solid black;
   text-align: left;
+  overflow: scroll;
 }
 
 .upvote{
   cursor: pointer;
+}
+
+.options{
+  cursor: pointer;
+  position: relative;
+  margin-left: 1em;
+}
+
+.dropdown{
+  position: absolute;
+  top: 1.5em;
+  right: 0;
+  width: 5em;
+  background: black;
+  color: white;
+  height: 2em;
+  line-height: 2em;
+  padding: 0 .5em;
+  border-radius: .5em;
+  border-top-right-radius: 0;
+}
+
+.new-post{
+  border-radius: .2em;
+  border: 1px solid black;
+  background: #ffc;
+  margin: 1em 0;
+  cursor: pointer;
+  padding: .2em .4em;
+  font-family: 'Philosopher', sans-serif;
+  font-size: 2em;
+}
+
+.new-post:focus{
+  outline: 0;
 }

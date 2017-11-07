@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -114,14 +115,16 @@ public class DataController {
     }
 
     @RequestMapping(value = "/post", method = RequestMethod.PUT)
-    public ResponseEntity createPost(@RequestBody PostRequest postRequest) {
+    public ResponseEntity createPost(@RequestBody PostRequest postRequest, @RequestHeader("token") String token) {
 
         //Validate the Post
         Post post = new Post();
         post.setTitle(postRequest.getTitle());
         post.setBody(postRequest.getBody());
 
-        User user = userDao.getById(Long.parseLong(postRequest.getUser()));
+        if(!UserController.jwt.containsKey(token)) return ResponseEntity.badRequest().body("Token expired or invalid.");
+        long userId = UserController.jwt.get(token);
+        User user = userDao.getById(userId);
         post.setUser(user);
 
         Category category = categoryDao.getById(Long.parseLong(postRequest.getCategory()));

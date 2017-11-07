@@ -10,48 +10,55 @@ export default class Account extends React.Component{
     super();
 
     this.state = {
-      account: null
+      posts: [],
+      set: false
     }
   }
 
-  componentWillMount(){
-    axios.get(host+"/user/1").then((response) => {
-      this.setState({account: response.data});
-      console.log(response.data);
-    });
-  }
-
-  getUser = () => {
-    let a = this.state.account;
-    if(this.state.account == null) return;
-    return(
-      <div>
-        <section className="left-side">
-          <div className="username">
-            <h1>{a.username}</h1>
-            <span className="name">{a.firstname} {a.lastname}</span>
-            <ul className="roles">
-            <h3 className="roles-header">Roles</h3>
-            {a.roles.map((item, index) => {
-              switch(item.role.toString()){
-                case "ROLE_USER":
-                  return <li key={index} className="role" style={{color: '#44f'}}>USER</li>;
-                case "ROLE_ADMIN":
-                  return <li key={index} className="role" style={{color: '#2d4'}}>ADMIN</li>;
-              }
-            })}
-            </ul>
-          </div>
-        </section>
-      </div>
-    );
+  setPosts = () => {
+    axios.get(host+"post/user/"+this.props.user.id)
+      .then((response) => {
+        this.setState({
+          posts: response.data,
+          set: true
+        });
+      })
   }
 
   render(){
-    const USER = this.getUser();
+    let a = this.props.user;
+    let ROLES, POSTS;
+    if(typeof a.roles !== 'undefined'){
+      if(!this.state.set) this.setPosts();
+      ROLES = a.roles.map((item, index) =>
+      item.role.toString() === "ROLE_USER" ?
+        <li key={index} className="role" style={{color: '#44f'}}>USER</li>
+        :
+        <li key={index} className="role" style={{color: '#2d4'}}>ADMIN</li>
+      );
+      POSTS = this.state.posts.map((item, index) =>
+        <li key={index} className="post">{item.title}</li>
+      );
+    }
     return(
       <div className="user-container">
-        {USER}
+        <section className="left-side">
+          <div className="username">
+            <h3 className="roles-header">Details</h3>
+            <h3>{a.username}</h3>
+            <h4>Name: {a.firstname} {a.lastname}</h4>
+            <ul className="roles">
+            <h3 className="roles-header">Roles</h3>
+            {ROLES}
+            </ul>
+          </div>
+        </section>
+        <section className="right-side">
+          <h1 className="posts-header">Posts</h1>
+          <ul className="posts">
+            {POSTS}
+          </ul>
+        </section>
       </div>
     );
   }

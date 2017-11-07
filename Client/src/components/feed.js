@@ -74,11 +74,10 @@ export default class Feed extends React.Component{
       categories: [],
       titles: []
     }
-    axios.get(host+"post/1002")
+    axios.get(host+"post/category/1")
       .then((response) => {
-        for(let i = 0 ; i < 5 ; i++){
-          this.setState({posts1: this.state.posts1.concat(response.data)});
-        }
+        console.log(response.data);
+        this.setState({posts1: response.data});
       })
   }
 
