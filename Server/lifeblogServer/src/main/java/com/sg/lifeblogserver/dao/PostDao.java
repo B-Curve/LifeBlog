@@ -20,6 +20,8 @@ public interface PostDao {
     
     List<Post> getByCategory(long id);
     
+    List<Post> getByUser(long id);
+    
     List<Post> getTopFiveAllCategory();
     
     Post add(Post post);
