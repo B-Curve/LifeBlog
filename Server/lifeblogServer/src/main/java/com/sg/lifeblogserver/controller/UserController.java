@@ -11,6 +11,7 @@ import javax.ws.rs.QueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,6 +37,16 @@ public class UserController {
                     .body("Username or password incorrect.");
         }
         return ResponseEntity.ok(validUser);
+    }
+    
+    @RequestMapping(value = "/user/{username}", method = RequestMethod.GET)
+    public ResponseEntity fetchUser(@PathVariable("username") String username) {
+        User user = userDao.getByUsername(username);
+        if (user == null) {
+            return ResponseEntity.badRequest()
+                    .body("User not found.");
+        }
+        return ResponseEntity.ok(user);
     }
 
 }

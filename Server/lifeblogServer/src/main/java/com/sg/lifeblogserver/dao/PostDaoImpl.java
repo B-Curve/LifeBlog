@@ -19,7 +19,7 @@ import org.hibernate.query.Query;
 public class PostDaoImpl implements PostDao {
 
     private Transaction tx;
-    
+
     //Query to retrieve all post for a given category in descending order of poastdate
     private static final String GET_BY_CATEGORY = "Select p from Post p "
             + " inner join p.category as c "
@@ -31,7 +31,11 @@ public class PostDaoImpl implements PostDao {
             + " inner join p.category as c "
             + " where c.id = :categoryId "
             + " order by likes desc ";
-           
+
+    private static final String GET_BY_USER = "Select p from Post p "
+            + " inner join p.user as u "
+            + " where u.id = :userId "
+            + " order by p.postdate desc ";
 
     @Override
     public Post getById(long id) {
@@ -52,7 +56,16 @@ public class PostDaoImpl implements PostDao {
         try (Session session = HibernateUtil.getSession()) {
             Query query = session.createQuery(GET_BY_CATEGORY);
             query.setParameter("categoryId", id);
-//            query.setFirstResult((int)offset);
+            query.setMaxResults(20);
+            return query.list();
+        }
+    }
+
+    @Override
+    public List<Post> getByUser(long id) {
+        try (Session session = HibernateUtil.getSession()) {
+            Query query = session.createQuery(GET_BY_USER);
+            query.setParameter("userId", id);
             query.setMaxResults(20);
             return query.list();
         }

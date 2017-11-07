@@ -45,12 +45,6 @@ public class DataController {
         return ResponseEntity.ok(categoryDao.getAll());
     }
 
-    @RequestMapping(value = "/post/categories", method = RequestMethod.GET)
-    public ResponseEntity fetchPostsAllCategory() {
-
-        return null;//ResponseEntity.ok(u);
-    }
-
     @RequestMapping(value = "/post/category/{id}", method = RequestMethod.GET)
     public ResponseEntity fetchPostsCategory(@PathVariable("id") long id){ //, @RequestHeader("offset") long offset) {
 
@@ -63,14 +57,16 @@ public class DataController {
         return ResponseEntity.ok(posts);
     }
 
-    @RequestMapping(value = "/u/{username}", method = RequestMethod.GET)
-    public ResponseEntity fetchUser(@PathVariable("username") String username) {
-        User user = userDao.getByUsername(username);
+    @RequestMapping(value = "/post/user/{id}", method = RequestMethod.GET)
+    public ResponseEntity fetchPostsUser(@PathVariable("id") long id){ 
+
+        User user = userDao.getById(id);
         if (user == null) {
             return ResponseEntity.badRequest()
-                    .body("User not found.");
+                    .body("User #" + id + " not found.");
         }
-        return ResponseEntity.ok(user);
+        List<Post> posts = postDao.getByUser(id);
+        return ResponseEntity.ok(posts);
     }
 
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
