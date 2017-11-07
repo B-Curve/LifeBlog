@@ -3,17 +3,28 @@ import { Route, Link, Switch } from 'react-router-dom';
 import axios from 'axios';
 import AccountForm from './accountForm';
 import PostCreator from './postCreator';
+import { connect } from 'react-redux';
+import { applyToken } from '../storeFunctions';
 import Feed from './feed';
 import './styles/homeDesktop.css';
 
-export default class Home extends React.Component{
+const host = "http://localhost:8080/lifeblogServer/api/";
+
+class Home extends React.Component{
 
   constructor(){
     super();
     this.state = {
       loggedIn: false,
-      username: ''
+      username: '',
+      loginToken: null
     }
+  }
+
+  componentDidMount = () => {
+    if(this.props.token === null) console.log("NULL!");
+    return;
+    console.log(this.props.token);
   }
 
   render(){
@@ -42,19 +53,51 @@ export default class Home extends React.Component{
           <Route path="/newPost">
             <div>{this.state.loggedIn ? <PostCreator /> : <PostCreator />}</div>
           </Route>
+          <Route path="/post">
+            <div>
+
+            </div>
+          </Route>
         </Switch>
 
         <h1 style={{textAlign:'center'}}>asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
         asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-      asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-    asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-  asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
-asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks</h1>
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlksasdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks
+        asdfasfjhdals;fhjkasdlfhjaslfkjahds;faklsjfsd;ljfalsfjasl;fjlks</h1>
 
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    token: state.token
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+    //applyLoginToken: () => dispatch(applyToken("HjhkD7BF8asdfn"))
+  };
+}
+
+const DefaultApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
+
+export default DefaultApp;

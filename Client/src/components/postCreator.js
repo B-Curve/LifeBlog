@@ -1,8 +1,9 @@
 import React from 'react';
 import './styles/postDesktop.css';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-const host = "http://10.1.10.6:8080/lifeblogServer/api/";
+const host = "http://localhost:8080/lifeblogServer/api/";
 
 export default class PostCreator extends React.Component{
 
@@ -14,6 +15,23 @@ export default class PostCreator extends React.Component{
       postTitle: '',
       categories: []
     }
+    axios.get('http://localhost:8080/lifeblogServer/login?username=abc&password=DoB1WCzh')
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    axios.put(host+'post', {
+      user: '1',
+      title: 'Default Title',
+      body: 'Default Body',
+      category: '1',
+      postDate: '2012-12-12'
+    })
+      .then((response) => {
+        console.log(response);
+      });
   }
 
   updatePostBody(e){

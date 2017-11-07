@@ -4,3 +4,4 @@ Server/lifeblogServer/target
 *.json
 *.class
 .DS_Store
+/Server/lifeblogServer/nbproject/

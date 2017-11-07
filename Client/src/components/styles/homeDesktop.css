@@ -192,3 +192,11 @@ body{
   cursor: pointer;
   text-decoration: none;
 }
+
+.post-list{
+  display: inline-block;
+}
+
+.post-section{
+  display: inline;
+}
