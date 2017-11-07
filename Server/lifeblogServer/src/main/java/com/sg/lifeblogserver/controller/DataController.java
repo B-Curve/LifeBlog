@@ -46,7 +46,7 @@ public class DataController {
     }
 
     @RequestMapping(value = "/post/category/{id}", method = RequestMethod.GET)
-    public ResponseEntity fetchPostsCategory(@PathVariable("id") long id){ //, @RequestHeader("offset") long offset) {
+    public ResponseEntity fetchPostsCategory(@PathVariable("id") long id) { //, @RequestHeader("offset") long offset) {
 
         Category category = categoryDao.getById(id);
         if (category == null) {
@@ -57,8 +57,15 @@ public class DataController {
         return ResponseEntity.ok(posts);
     }
 
+    @RequestMapping(value = "/post/category/", method = RequestMethod.GET)
+    public ResponseEntity fetchPostsAllCategory() { 
+
+        List<Post> posts = postDao.getTopFiveAllCategory();
+        return ResponseEntity.ok(posts);
+    }
+
     @RequestMapping(value = "/post/user/{id}", method = RequestMethod.GET)
-    public ResponseEntity fetchPostsUser(@PathVariable("id") long id){ 
+    public ResponseEntity fetchPostsUser(@PathVariable("id") long id) {
 
         User user = userDao.getById(id);
         if (user == null) {
@@ -78,31 +85,33 @@ public class DataController {
         }
         return ResponseEntity.ok(post);
     }
-    
+
     @RequestMapping(value = "/post", method = RequestMethod.PUT)
     public ResponseEntity createPost(@RequestBody PostRequest postRequest) {
 
         Post post = new Post();
         post.setTitle(postRequest.getTitle());
         post.setBody(postRequest.getBody());
-        
+
         User user = userDao.getById(Long.parseLong(postRequest.getUser()));
         post.setUser(user);
-        
+
         Category category = categoryDao.getById(Long.parseLong(postRequest.getCategory()));
         post.setCategory(category);
-        
-        LocalDate postDate =  LocalDate.parse(postRequest.getPostDate(), DateTimeFormatter.ISO_DATE);
+
+        LocalDate postDate = LocalDate.parse(postRequest.getPostDate(), DateTimeFormatter.ISO_DATE);
         post.setPostdate(postDate);
-        
+
         postDao.add(post);
         return ResponseEntity.ok(post);
     }
-    
+
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public ResponseEntity fetchUserById(@PathVariable("id") int id){
+    public ResponseEntity fetchUserById(@PathVariable("id") int id) {
         User u = userDao.getById(id);
-        if(u == null) return ResponseEntity.badRequest().body("User does not exist.");
+        if (u == null) {
+            return ResponseEntity.badRequest().body("User does not exist.");
+        }
         return ResponseEntity.ok(u);
     }
 
