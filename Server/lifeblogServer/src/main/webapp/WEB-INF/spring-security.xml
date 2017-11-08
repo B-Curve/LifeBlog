@@ -26,6 +26,8 @@ where u.id = ur.userid and r.id = ur.roleid and u.username =?" />
     <http pattern="/fonts/**" security="none" />
 
     <http auto-config="true">
+        <form-login login-processing-url="/j_spring_security_check" 
+                    login-page="/login" />
         <intercept-url pattern="/"
                        access="IS_AUTHENTICATED_ANONYMOUSLY"/>     
         <intercept-url pattern="/home" 
@@ -34,8 +36,8 @@ where u.id = ur.userid and r.id = ur.roleid and u.username =?" />
                        access="ROLE_USER"/>
         <intercept-url pattern="/admin" 
                        access="ROLE_ADMIN"/>        
-        <intercept-url pattern="/api/post/category/*"
-                       access="ROLE_USER"/>
+<!--        <intercept-url pattern="/api/post/category/*"
+                       access="ROLE_USER"/>-->
 <!--        <intercept-url pattern="/login" 
                        access="ROLE_USER"/>-->
     

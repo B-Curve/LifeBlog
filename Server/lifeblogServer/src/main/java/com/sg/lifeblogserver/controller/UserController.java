@@ -6,15 +6,19 @@
 package com.sg.lifeblogserver.controller;
 
 import com.sg.lifeblogserver.dao.UserDao;
+import com.sg.lifeblogserver.model.Role;
 import com.sg.lifeblogserver.model.User;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import javax.ws.rs.QueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +35,8 @@ public class UserController {
     @Autowired
     UserDao userDao;
     
-    public static Map<String, User> jwt = new HashMap<>();
+    //KEY = TOKEN, OBJECT = USER_ID
+    public static Map<String, Long> jwt = new HashMap<>();
     public static String getRandomString(){
         String all = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder builder = new StringBuilder();
@@ -49,7 +54,7 @@ public class UserController {
         if (validUser == null) return ResponseEntity.badRequest().body("Username or password incorrect.");
         if(!validUser.getPassword().equals(password)) return ResponseEntity.badRequest().body("Password is Incorrect.");
         String key = getRandomString();
-        jwt.put(key, validUser);
+        jwt.put(key, validUser.getId());
         return ResponseEntity.ok(key);
     }
     
@@ -66,7 +71,21 @@ public class UserController {
     @RequestMapping(value = "/token/{token}", method = RequestMethod.GET)
     public ResponseEntity  fetchUserByLoginToken(@PathVariable("token") String token){
         if(!jwt.containsKey(token)) return ResponseEntity.badRequest().body("ERROR");
-        return ResponseEntity.ok(jwt.get(token));
+        return ResponseEntity.ok(userDao.getById(jwt.get(token)));
+    }
+    
+    @RequestMapping(value = "/createUser", method = RequestMethod.POST)
+    public ResponseEntity createUser(@RequestBody User u){
+        Role role = new Role();
+        role.setId(2);
+        role.setRole("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        u.setRoles(roles);
+        u = userDao.add(u);
+        String key = getRandomString();
+        jwt.put(key, u.getId());
+        return ResponseEntity.ok(key);
     }
 
 }

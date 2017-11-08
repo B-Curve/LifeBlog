@@ -1,0 +1,106 @@
+.view-container{
+  width: 70vw;
+  margin: 2em auto;
+  border: 1px solid black;
+  text-align: center;
+  position: relative;
+  border-radius: .1em;
+}
+
+.view-title{
+  margin: 1em auto;
+}
+
+.view-id{
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: .3em .6em;
+  margin: 0;
+}
+
+.view-category{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: .3em .6em;
+  margin: 0;
+}
+
+.view-body{
+  width: 80%;
+  margin: 1em auto 4em;
+}
+
+.view-likes{
+  position: absolute;
+  margin: 0;
+  bottom: 0;
+  left: 0;
+  padding: .3em .6em;
+}
+
+.view-poster{
+  position: absolute;
+  margin: 0;
+  bottom: 0;
+  right: 0;
+  padding: .3em .6em;
+}
+
+.view-make-reply{
+  margin: 0 auto;
+  padding: .3em .5em;
+  background: black;
+  color: white;
+  width: 5em;
+  border-top-right-radius: .5em;
+  border-top-left-radius: .5em;
+  cursor: pointer;
+}
+
+.view-make-reply:hover{
+  color: green;
+}
+
+.reply-container{
+  width: 40vw;
+  height: 15em;
+  border: 1px solid black;
+  margin: 0 auto;
+  position: relative;
+}
+
+.reply-body{
+  width: 100%;
+  height: 100%;
+  resize: none;
+  font-size: 1.2em;
+}
+
+.text-count{
+  position: absolute;
+  z-index: 99;
+  right: 0;
+  bottom: 0;
+  padding: .3em .6em;
+  background: black;
+  color: white;
+  border-top-left-radius: .5em;
+}
+
+.submit-reply{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: .3em .6em;
+  background: black;
+  color: white;
+  border-top-right-radius: .5em;
+  cursor: pointer;
+}
+
+.submit-reply:hover{
+  color: green;
+}

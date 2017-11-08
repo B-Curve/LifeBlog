@@ -20,4 +20,9 @@ public class AdminController {
     public String displayAdminPage() {
         return "admin";
     }
+    
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String getLogin(){
+        return "login";
+    }
 }
