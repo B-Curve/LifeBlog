@@ -13,7 +13,8 @@ export default class Feed extends React.Component{
     this.state = {
       posts1: [],
       categories: [],
-      titles: []
+      titles: [],
+      userAccess: null
     }
     axios.get(host+"post/category/1")
       .then((response) => {
@@ -21,10 +22,20 @@ export default class Feed extends React.Component{
       })
   }
 
+  setEditPost(user){
+    console.log(user.roles);
+  }
+
   getPreview = (text) => {
     let trimmedText = text.substring(0, 200).trim();
     return trimmedText + "...";
   }
+
+  verifyUser = (user) => {
+    for(var key in user.roles){
+      if(user.roles[key].id === 2) return <Link className="post-edit" to={"editPost/"+item.id}>Edit Post</Link>;
+    }
+  };
 
   render(){
     const P1 = this.state.posts1.map((item, index) =>
@@ -39,6 +50,9 @@ export default class Feed extends React.Component{
       </div>
       </li>
   );
+  // if(typeof this.props.user['username'] === 'string'){
+  //   setEditPost(this.props.user);
+  // }
     return(
       <div>
         <ul className="post-section">

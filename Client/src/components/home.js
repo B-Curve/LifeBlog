@@ -94,14 +94,14 @@ class Home extends React.Component{
                 <Link to="/newPost"><button type="button" className="new-post">New Post</button></Link>
                  : null}
               {this.state.loggedIn ? null : <AccountForm updateToken={this.updateToken.bind(this)} token={this.updateToken.bind(this)} />}
-              <Feed loggedIn={this.state.loggedIn} />
+              <Feed user={this.state.user} loggedIn={this.state.loggedIn} />
             </div>
           </Route>
           <Route path="/post">
-            <Post />
+            <Post token={this.props.token} />
           </Route>
           <Route path="/newPost">
-            <div>{this.state.loggedIn ? <PostCreator /> : <PostCreator />}</div>
+            <div>{this.state.loggedIn ? <PostCreator token={this.props.token} /> : window.location.pathname + '/'}</div>
           </Route>
           <Route path="/account">
             <div>{this.state.loggedIn ? <Account user={this.state.user} /> : null}</div>

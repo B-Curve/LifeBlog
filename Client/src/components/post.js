@@ -9,7 +9,10 @@ export default class Post extends React.Component{
   constructor(){
     super();
     this.state = {
-      post: null
+      post: null,
+      replyBody: '',
+      replyOpen: false,
+      id: 0
     }
   }
 
@@ -18,7 +21,7 @@ export default class Post extends React.Component{
     axios.get(host+"post/"+id)
       .then((response) => {
         console.log(response.data);
-        this.setState({post: response.data});
+        this.setState({post: response.data, id: parseInt(id)});
       })
   }
 
@@ -33,6 +36,53 @@ export default class Post extends React.Component{
     return fullDate;
   };
 
+  updateReply(e){
+    let value = e.target.value;
+    if(value.length > 500) return;
+    this.setState({replyBody: value});
+  }
+
+  reply(){
+    if(this.state.replyOpen){
+      this.setState({replyOpen: false, replyBody: ""});
+    }else{
+      this.setState({replyOpen: true});
+    }
+  }
+
+  getStyles(size){
+    if(size === 500) return {color:'red'};
+    if(size >= 475) return {color:'orange'};
+    if(size >= 450) return {color:'yellow'};
+  }
+
+  submitReply(){
+    let reply = {
+      reply: this.state.replyBody
+    };
+    axios.put(host+"post/"+this.state.id+"/reply", reply, {headers: {token: this.props.token}})
+      .then((response) => {
+        window.location.reload();
+      });
+  }
+
+  openReply(){
+    if(this.state.replyOpen){
+      return(
+        <div className="reply-container">
+          <textarea type="text" className="reply-body"
+            value={this.state.replyBody}
+            onChange={this.updateReply.bind(this)}></textarea>
+          <span style={this.getStyles(this.state.replyBody.length)}
+            className="text-count">{this.state.replyBody.length}/500</span>
+          <p className="submit-reply" onClick={this.submitReply.bind(this)}>Submit</p>
+        </div>
+      );
+    }else{
+      return null;
+    }
+  }
+
   getPost = () => {
     if(this.state.post === null) return;
     return(
@@ -44,7 +94,9 @@ export default class Post extends React.Component{
         <p className="view-body">{this.state.post.body}</p>
         <p className="view-likes">Likes: {this.state.post.likes}</p>
         <p className="view-poster">Posted By: {this.state.post.user.username}</p>
-        <p className="view-make-reply">REPLY</p>
+        {this.props.token !== null ?
+        <p className="view-make-reply" onClick={this.reply.bind(this)}>REPLY</p>:
+        null}
       </div>
     );
   };
@@ -64,6 +116,7 @@ export default class Post extends React.Component{
         <div className="view-container">
           {this.getPost()}
         </div>
+        {this.openReply()}
         {this.getReplies()}
       </div>
     );

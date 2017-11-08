@@ -13,6 +13,7 @@ export default class PostCreator extends React.Component{
     this.state = {
       postBody: '',
       postTitle: '',
+      postCategory: 0,
       categories: []
     }
   }
@@ -36,6 +37,37 @@ export default class PostCreator extends React.Component{
     this.setState({postTitle: title});
   }
 
+  updateCategory(e){
+    this.setState({postCategory: e.target.value});
+  }
+
+  submitPost(){
+    if(this.state.postTitle.length < 1){
+      alert("Post must have a title!");
+      return;
+    }
+    if(this.state.postBody.length < 20){
+      alert("Post body must be at least 20 characters long!");
+      return;
+    }
+    if(this.state.postCategory < 1 || this.state.postCategory > this.state.categories.length){
+      alert("Please select a post category!");
+      return;
+    }
+    let date = new Date().toISOString().split("T")[0];
+    let post = {
+      title: this.state.postTitle,
+      body: this.state.postBody,
+      category: this.state.postCategory,
+      postDate: date,
+      likes: 0
+    };
+    axios.put(host+"post", post, {headers: {token: this.props.token}})
+      .then((response) => {
+        window.location.pathname = '/post/'+response.data.id;
+      });
+  }
+
   render(){
     return(
       <div>
@@ -45,8 +77,8 @@ export default class PostCreator extends React.Component{
           <input type="text" className="createPostTitle" value={this.state.postTitle}
             onChange={this.updatePostTitle.bind(this)} />
           <p>{this.state.postTitle.length}/255</p>
-        <select defaultValue={1} className="postCategory">
-          <option disabled value="1">Select Category...</option>
+        <select onChange={this.updateCategory.bind(this)} defaultValue={0} className="postCategory">
+          <option disabled value="0">Select Category...</option>
           {this.state.categories.map((item, index) => {
             return <option key={index} value={item.id}>{item.name}</option>
           })}
@@ -59,7 +91,7 @@ export default class PostCreator extends React.Component{
             cols="120" rows="12"></textarea>
           <p>{this.state.postBody.length}/4800</p>
         <br />
-      <button type="button" className="postSubmit">Submit Post</button>
+      <button type="button" className="postSubmit" onClick={this.submitPost.bind(this)}>Submit Post</button>
         </div>
       </div>
     );

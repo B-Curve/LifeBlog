@@ -26,6 +26,8 @@ where u.id = ur.userid and r.id = ur.roleid and u.username =?" />
     <http pattern="/fonts/**" security="none" />
 
     <http auto-config="true">
+        <form-login login-processing-url="/j_spring_security_check" 
+                    login-page="/login" />
         <intercept-url pattern="/"
                        access="IS_AUTHENTICATED_ANONYMOUSLY"/>     
         <intercept-url pattern="/home" 

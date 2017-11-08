@@ -11,6 +11,7 @@ import com.sg.lifeblogserver.dao.CategoryDao;
 import com.sg.lifeblogserver.dao.UserDao;
 import com.sg.lifeblogserver.dao.PostDao;
 import com.sg.lifeblogserver.model.Category;
+import com.sg.lifeblogserver.model.Reply;
 import com.sg.lifeblogserver.model.request.PostRequest;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -145,6 +146,20 @@ public class DataController {
                     .body("Post #" + id + " not found.");
         }
         postDao.delete(id);
+        return ResponseEntity.ok(post);
+    }
+    
+    @RequestMapping(value = "/post/{id}/reply", method = RequestMethod.PUT)
+    public ResponseEntity addPostReply(@PathVariable("id") long id,
+            @RequestBody Reply reply, @RequestHeader("token") String token){
+        Post post = postDao.getById(id);
+        if(!UserController.jwt.containsKey(token)) return ResponseEntity.badRequest().body("Error.");
+        long userId = UserController.jwt.get(token);
+        reply.setLikes(0);
+        String now = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
+        reply.setReplydate(LocalDate.parse(now));
+        reply.setReplierid(userId);
+        post.getReplies().add(reply);
         return ResponseEntity.ok(post);
     }
 
