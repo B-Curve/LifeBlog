@@ -4,6 +4,7 @@ import axios from 'axios';
 import AccountForm from './accountForm';
 import PostCreator from './postCreator';
 import Account from './account';
+import Post from './post';
 import { connect } from 'react-redux';
 import { applyToken } from '../storeFunctions';
 import Feed from './feed';
@@ -49,14 +50,14 @@ class Home extends React.Component{
 
   signOut(){
     this.props.applyLoginToken(null);
-    window.location.reload();
+    window.location.pathname = "/";
   }
 
   determineUser = () => {
     if(this.state.username !== 'Not Signed In'){
       return(
         <span>
-          <Link style={{textDecoration: 'none',color:'black'}} to="/account">{this.state.username}</Link>
+          <Link className="account-name" to="/account">{this.state.username}</Link>
           <span className="options" onClick={this.toggle.bind(this)}>{this.state.signOut ? "↑" : "↓"}
             {this.state.signOut ? <div className="dropdown" onClick={this.signOut.bind(this)}>Sign Out</div> : null}
           </span>
@@ -92,9 +93,12 @@ class Home extends React.Component{
               {this.state.loggedIn ?
                 <Link to="/newPost"><button type="button" className="new-post">New Post</button></Link>
                  : null}
-              {this.state.loggedIn ? null : <AccountForm token={this.updateToken.bind(this)} />}
+              {this.state.loggedIn ? null : <AccountForm updateToken={this.updateToken.bind(this)} token={this.updateToken.bind(this)} />}
               <Feed loggedIn={this.state.loggedIn} />
             </div>
+          </Route>
+          <Route path="/post">
+            <Post />
           </Route>
           <Route path="/newPost">
             <div>{this.state.loggedIn ? <PostCreator /> : <PostCreator />}</div>

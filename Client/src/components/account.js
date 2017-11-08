@@ -56,7 +56,7 @@ export default class Account extends React.Component{
         <section className="right-side">
           <h1 className="posts-header">Posts</h1>
           <ul className="posts">
-            {POSTS}
+            {this.state.posts.length > 0 ? POSTS : <h1 style={{marginLeft:'-5em',textAlign:'center'}}>You have no posts yet...</h1>}
           </ul>
         </section>
       </div>

@@ -124,13 +124,31 @@ body{
 }
 
 .accountInput{
-  display: inline;
-  width: 10em;
-  height: 2em;
+  display: inline-block;
+  width: 12em;
+  height: 2.5em;
   border-radius: .25em;
   border: 1px solid black;
   margin: 0 1em;
   text-align: center;
+}
+
+.form-block{
+  position: relative;
+}
+
+.login-list{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 40%;
+}
+
+.signup-list{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 15%;
 }
 
 .accountButton{
@@ -230,6 +248,8 @@ body{
   width: 100%;
   margin: 0;
   border: 1px solid black;
+  border-bottom-right-radius: .3em;
+  border-bottom-left-radius: .3em;
 }
 
 .post-likes{
@@ -261,6 +281,21 @@ body{
   overflow: scroll;
 }
 
+.read-more{
+  position: absolute;
+  bottom: 1.95em;
+  right: 0;
+  background: black;
+  color: white;
+  padding: .2em .5em;
+  border-top-left-radius: .5em;
+  text-decoration: none;
+}
+
+.read-more:hover{
+  color: blue;
+}
+
 .upvote{
   cursor: pointer;
 }
@@ -283,6 +318,19 @@ body{
   padding: 0 .5em;
   border-radius: .5em;
   border-top-right-radius: 0;
+}
+
+.dropdown:hover{
+  color: yellow;
+}
+
+.account-name{
+  color: black;
+  text-decoration: none;
+}
+
+.account-name:hover{
+  color: purple;
 }
 
 .new-post{

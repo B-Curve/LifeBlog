@@ -29,10 +29,6 @@
   padding-left: .5em;
 }
 
-.user-details{
-
-}
-
 .name{
   font-size: 1em;
   padding-left: 1.5em;
@@ -51,7 +47,8 @@
 }
 
 .role{
-  text-indent: 1.5em;
+  text-indent: .5em;
+  margin: .75em 0;
 }
 
 .posts{
