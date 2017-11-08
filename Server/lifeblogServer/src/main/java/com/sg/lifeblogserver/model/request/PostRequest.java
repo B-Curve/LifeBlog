@@ -17,9 +17,9 @@ public class PostRequest {
     private String postDate;
     private String title;
     private String body;
-    private String likes;
+    private boolean liked;
     private String reply;
-    private String replierid;
+    private long replierid;
     private String replydate;
 
     public String getReply() {
@@ -30,11 +30,11 @@ public class PostRequest {
         this.reply = reply;
     }
 
-    public String getReplierid() {
+    public long getReplierid() {
         return replierid;
     }
 
-    public void setReplierid(String replierid) {
+    public void setReplierid(long replierid) {
         this.replierid = replierid;
     }
 
@@ -46,12 +46,12 @@ public class PostRequest {
         this.replydate = replydate;
     }
 
-    public String getLikes() {
-        return likes;
+    public boolean isLiked() {
+        return liked;
     }
 
-    public void setLikes(String likes) {
-        this.likes = likes;
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
 
     public String getPostId() {

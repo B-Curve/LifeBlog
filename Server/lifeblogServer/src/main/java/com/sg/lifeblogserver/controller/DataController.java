@@ -11,6 +11,7 @@ import com.sg.lifeblogserver.dao.CategoryDao;
 import com.sg.lifeblogserver.dao.UserDao;
 import com.sg.lifeblogserver.dao.PostDao;
 import com.sg.lifeblogserver.model.Category;
+import com.sg.lifeblogserver.model.Reply;
 import com.sg.lifeblogserver.model.request.PostRequest;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -107,9 +108,18 @@ public class DataController {
             Category category = categoryDao.getById(Long.parseLong(postRequest.getCategory()));
             post.setCategory(category);
         }
-
-        if (!postRequest.getLikes().isEmpty()) {
-            post.setLikes(Integer.parseInt(postRequest.getLikes()));
+        
+        if (!postRequest.getReply().isEmpty())
+        {
+            List<Reply> replies = post.getReplies();
+            Reply reply = new Reply();
+            reply.setReply(postRequest.getReply());
+            reply.setReplierid(postRequest.getReplierid());
+            reply.setReplydate(LocalDate.parse(postRequest.getReplydate(), DateTimeFormatter.ISO_DATE));
+            replies.add(reply);
+        }
+        if (postRequest.isLiked()) {
+            post.setLikes(post.getLikes() + 1);
         }
         postDao.update(post);
         return ResponseEntity.ok(post);
