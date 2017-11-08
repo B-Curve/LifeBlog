@@ -45,6 +45,16 @@ public class Post {
     @OneToMany(mappedBy ="reply", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Reply> replies;
     
+    private boolean published;
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+    
     private int likes;
 
     public long getId() {

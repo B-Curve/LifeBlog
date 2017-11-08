@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -98,18 +99,18 @@ public class DataController {
                     .body("Post #" + id + " not found.");
         }
 
-        if (!postRequest.getTitle().isEmpty()) {
+        if ( !StringUtils.isEmpty(postRequest.getTitle())) {
             post.setTitle(postRequest.getTitle());
         }
-        if (!postRequest.getBody().isEmpty()) {
+        if (!StringUtils.isEmpty(postRequest.getBody())) {
             post.setBody(postRequest.getBody());
         }
-        if (!postRequest.getCategory().isEmpty()) {
+        if (!StringUtils.isEmpty(postRequest.getCategory())) {
             Category category = categoryDao.getById(Long.parseLong(postRequest.getCategory()));
             post.setCategory(category);
         }
         
-        if (!postRequest.getReply().isEmpty())
+        if (!StringUtils.isEmpty(postRequest.getReply()))
         {
             List<Reply> replies = post.getReplies();
             Reply reply = new Reply();
@@ -118,6 +119,7 @@ public class DataController {
             reply.setReplydate(LocalDate.parse(postRequest.getReplydate(), DateTimeFormatter.ISO_DATE));
             replies.add(reply);
         }
+        
         if (postRequest.isLiked()) {
             post.setLikes(post.getLikes() + 1);
         }
