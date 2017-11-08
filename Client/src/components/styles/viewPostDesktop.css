@@ -5,6 +5,8 @@
   text-align: center;
   position: relative;
   border-radius: .1em;
+  background: cornsilk;
+  box-shadow: 10px 10px 5px #888888;
 }
 
 .view-title{

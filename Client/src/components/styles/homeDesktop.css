@@ -223,7 +223,8 @@ body{
   display: inline-block;
   width: 30%;
   height: 20em;
-  margin: .5em 1em;
+  margin: 1em 1.5em;
+  box-shadow: 10px 10px 5px #888888;
 }
 
 .post-header{
@@ -234,12 +235,14 @@ body{
   height: 2em;
   overflow: scroll;
   line-height: 2em;
+  background: cornsilk;
 }
 
 .post-body{
   position: relative;
   border: 1px solid black;
   height: 14em;
+  background: cornsilk;
 }
 
 .post-category{
@@ -250,6 +253,7 @@ body{
   border: 1px solid black;
   border-bottom-right-radius: .3em;
   border-bottom-left-radius: .3em;
+  background: cornsilk;
 }
 
 .post-likes{
@@ -342,6 +346,11 @@ body{
   padding: .2em .4em;
   font-family: 'Philosopher', sans-serif;
   font-size: 2em;
+  box-shadow: 5px 5px 2.55px #888888;
+}
+
+.new-post:hover{
+  box-shadow: none;
 }
 
 .new-post:focus{

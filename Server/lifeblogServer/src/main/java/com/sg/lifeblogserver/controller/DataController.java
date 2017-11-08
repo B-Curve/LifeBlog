@@ -89,8 +89,11 @@ public class DataController {
     }
 
     @RequestMapping(value = "/post/{id}", method = RequestMethod.PUT)
-    public ResponseEntity updatePost(@PathVariable("id") long id, @RequestBody PostRequest postRequest) {
+    public ResponseEntity updatePost(@PathVariable("id") long id, @RequestBody PostRequest postRequest,
+            @RequestHeader("token") String token) {
 
+        if(!UserController.jwt.containsKey(token)) return ResponseEntity.badRequest().body("Error");
+        
         Post post = postDao.getById(id);
         if (post == null) {
             return ResponseEntity.badRequest()
@@ -146,20 +149,6 @@ public class DataController {
                     .body("Post #" + id + " not found.");
         }
         postDao.delete(id);
-        return ResponseEntity.ok(post);
-    }
-    
-    @RequestMapping(value = "/post/{id}/reply", method = RequestMethod.PUT)
-    public ResponseEntity addPostReply(@PathVariable("id") long id,
-            @RequestBody Reply reply, @RequestHeader("token") String token){
-        Post post = postDao.getById(id);
-        if(!UserController.jwt.containsKey(token)) return ResponseEntity.badRequest().body("Error.");
-        long userId = UserController.jwt.get(token);
-        reply.setLikes(0);
-        String now = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
-        reply.setReplydate(LocalDate.parse(now));
-        reply.setReplierid(userId);
-        post.getReplies().add(reply);
         return ResponseEntity.ok(post);
     }
 
