@@ -18,6 +18,33 @@ public class PostRequest {
     private String title;
     private String body;
     private String likes;
+    private String reply;
+    private String replierid;
+    private String replydate;
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
+
+    public String getReplierid() {
+        return replierid;
+    }
+
+    public void setReplierid(String replierid) {
+        this.replierid = replierid;
+    }
+
+    public String getReplydate() {
+        return replydate;
+    }
+
+    public void setReplydate(String replydate) {
+        this.replydate = replydate;
+    }
 
     public String getLikes() {
         return likes;
