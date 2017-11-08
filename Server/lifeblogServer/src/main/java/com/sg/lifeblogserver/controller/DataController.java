@@ -22,6 +22,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -91,8 +92,11 @@ public class DataController {
     }
 
     @RequestMapping(value = "/post/{id}", method = RequestMethod.PUT)
-    public ResponseEntity updatePost(@PathVariable("id") long id, @RequestBody PostRequest postRequest) {
+    public ResponseEntity updatePost(@PathVariable("id") long id, @RequestBody PostRequest postRequest,
+            @RequestHeader("token") String token) {
 
+        if(!UserController.jwt.containsKey(token)) return ResponseEntity.badRequest().body("Error");
+        
         Post post = postDao.getById(id);
         if (post == null) {
             return ResponseEntity.badRequest()
@@ -158,4 +162,5 @@ public class DataController {
         postDao.delete(id);
         return ResponseEntity.ok(post);
     }
+    
 }
