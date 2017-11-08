@@ -75,6 +75,8 @@ public class DataController {
         List<Post> posts = postDao.getByUser(id);
         return ResponseEntity.ok(posts);
     }
+    
+    
 
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public ResponseEntity fetchPost(@PathVariable("id") int id) {
@@ -144,5 +146,4 @@ public class DataController {
         postDao.delete(id);
         return ResponseEntity.ok(post);
     }
-
 }
