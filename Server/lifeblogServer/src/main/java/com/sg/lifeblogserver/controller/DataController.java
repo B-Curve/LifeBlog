@@ -77,6 +77,8 @@ public class DataController {
         List<Post> posts = postDao.getByUser(id);
         return ResponseEntity.ok(posts);
     }
+    
+    
 
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public ResponseEntity fetchPost(@PathVariable("id") int id) {
@@ -110,25 +112,32 @@ public class DataController {
             Category category = categoryDao.getById(Long.parseLong(postRequest.getCategory()));
             post.setCategory(category);
         }
-
-        if (!postRequest.getLikes().isEmpty()) {
-            post.setLikes(Integer.parseInt(postRequest.getLikes()));
+        
+        if (!postRequest.getReply().isEmpty())
+        {
+            List<Reply> replies = post.getReplies();
+            Reply reply = new Reply();
+            reply.setReply(postRequest.getReply());
+            reply.setReplierid(postRequest.getReplierid());
+            reply.setReplydate(LocalDate.parse(postRequest.getReplydate(), DateTimeFormatter.ISO_DATE));
+            replies.add(reply);
+        }
+        if (postRequest.isLiked()) {
+            post.setLikes(post.getLikes() + 1);
         }
         postDao.update(post);
         return ResponseEntity.ok(post);
     }
 
     @RequestMapping(value = "/post", method = RequestMethod.PUT)
-    public ResponseEntity createPost(@RequestBody PostRequest postRequest, @RequestHeader("token") String token) {
+    public ResponseEntity createPost(@RequestBody PostRequest postRequest) {
 
         //Validate the Post
         Post post = new Post();
         post.setTitle(postRequest.getTitle());
         post.setBody(postRequest.getBody());
 
-        if(!UserController.jwt.containsKey(token)) return ResponseEntity.badRequest().body("Token expired or invalid.");
-        long userId = UserController.jwt.get(token);
-        User user = userDao.getById(userId);
+        User user = userDao.getById(Long.parseLong(postRequest.getUser()));
         post.setUser(user);
 
         Category category = categoryDao.getById(Long.parseLong(postRequest.getCategory()));
@@ -151,5 +160,5 @@ public class DataController {
         postDao.delete(id);
         return ResponseEntity.ok(post);
     }
-
+    
 }

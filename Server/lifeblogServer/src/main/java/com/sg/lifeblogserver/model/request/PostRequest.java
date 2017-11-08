@@ -17,10 +17,10 @@ public class PostRequest {
     private String postDate;
     private String title;
     private String body;
-    private String likes;
+    private boolean liked;
     private String reply;
+    private long replierid;
     private String replydate;
-    private String replierid;
 
     public String getReply() {
         return reply;
@@ -28,6 +28,14 @@ public class PostRequest {
 
     public void setReply(String reply) {
         this.reply = reply;
+    }
+
+    public long getReplierid() {
+        return replierid;
+    }
+
+    public void setReplierid(long replierid) {
+        this.replierid = replierid;
     }
 
     public String getReplydate() {
@@ -38,20 +46,12 @@ public class PostRequest {
         this.replydate = replydate;
     }
 
-    public String getReplierid() {
-        return replierid;
+    public boolean isLiked() {
+        return liked;
     }
 
-    public void setReplierid(String replierid) {
-        this.replierid = replierid;
-    }
-
-    public String getLikes() {
-        return likes;
-    }
-
-    public void setLikes(String likes) {
-        this.likes = likes;
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
 
     public String getPostId() {
