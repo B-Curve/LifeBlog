@@ -1,6 +1,6 @@
-	drop database if exists lifeblog;
-create database lifeblog;
-use lifeblog;
+	drop database if exists lifeblog_test;
+create database lifeblog_test;
+use lifeblog_test;
 
 create table `User`
 (
@@ -47,6 +47,7 @@ create table Post
     body text not null,
     likes int null,
     postdate datetime not null,
+    published tinyint default 0,	
     primary key(id),
     foreign key(categoryid) references Category(id) on delete cascade,
     foreign key(userid) references `User`(id) on delete cascade

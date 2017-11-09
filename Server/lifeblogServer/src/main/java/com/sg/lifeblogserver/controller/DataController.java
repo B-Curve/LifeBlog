@@ -78,8 +78,6 @@ public class DataController {
         List<Post> posts = postDao.getByUser(id);
         return ResponseEntity.ok(posts);
     }
-    
-    
 
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public ResponseEntity fetchPost(@PathVariable("id") int id) {
@@ -119,7 +117,9 @@ public class DataController {
             List<Reply> replies = post.getReplies();
             Reply reply = new Reply();
             reply.setReply(postRequest.getReply());
-            reply.setReplierid(postRequest.getReplierid());
+            User replier = userDao.getById(postRequest.getReplierid());
+            reply.setPostid(post.getId());
+            reply.setReplier(replier);
             reply.setReplydate(LocalDate.parse(postRequest.getReplydate(), DateTimeFormatter.ISO_DATE));
             replies.add(reply);
         }
@@ -162,5 +162,4 @@ public class DataController {
         postDao.delete(id);
         return ResponseEntity.ok(post);
     }
-    
 }

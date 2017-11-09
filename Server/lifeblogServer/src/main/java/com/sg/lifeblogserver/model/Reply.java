@@ -6,10 +6,14 @@
 package com.sg.lifeblogserver.model;
 
 import java.time.LocalDate;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -22,10 +26,24 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private long postid;
+    
     private String reply;
     private LocalDate replydate;
-    private long replierid;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "replierid", referencedColumnName = "id")
+    private User replier;
+    
     private long likes;
+
+    public long getPostid() {
+        return postid;
+    }
+
+    public void setPostid(long postid) {
+        this.postid = postid;
+    }
 
     public long getId() {
         return id;
@@ -51,12 +69,12 @@ public class Reply {
         this.replydate = replydate;
     }
 
-    public long getReplierid() {
-        return replierid;
+    public User getReplier() {
+        return replier;
     }
 
-    public void setReplierid(long replierid) {
-        this.replierid = replierid;
+    public void setReplier(User replier) {
+        this.replier = replier;
     }
 
     public long getLikes() {
@@ -66,5 +84,4 @@ public class Reply {
     public void setLikes(long likes) {
         this.likes = likes;
     }
-
 }
