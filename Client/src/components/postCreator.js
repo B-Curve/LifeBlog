@@ -70,7 +70,7 @@ export default class PostCreator extends React.Component{
 
   render(){
     return(
-      <div>
+      <div className="bg">
         {/* <Link to="/" className="goBack">&lt;- Go Home</Link> */}
         <div className="createPostBody">
           <h1 className="postBodyHead">Post Title</h1>

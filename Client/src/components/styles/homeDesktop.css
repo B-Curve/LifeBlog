@@ -1,11 +1,7 @@
-body{
-  background: blue;
-}
-
 .header{
   color: black;
-  /*background: #FCDC3B;*/
-  width: 60vw;
+  background: #cfc;
+  width: 100vw;
   height: 60px;
   margin: 0 auto;
   opacity: 0.8;
@@ -36,10 +32,18 @@ body{
   padding: 80px 0;
   height: 20em;
   width: 100vw;
-  margin: 1.5em auto 0;
+  margin: 0 auto;
   opacity: 1;
   background-attachment: fixed;
   background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.man{
+  width: 100%;
+  height: 30em;
+  background-image: url('/man.jpg');
+  background-attachment: fixed;
   background-size: cover;
 }
 
@@ -223,8 +227,7 @@ body{
   display: inline-block;
   width: 30%;
   height: 20em;
-  margin: 1em 1.5em;
-  box-shadow: 10px 10px 5px #888888;
+  margin: 1em;
 }
 
 .post-header{
@@ -235,14 +238,14 @@ body{
   height: 2em;
   overflow: scroll;
   line-height: 2em;
-  background: cornsilk;
+  background: #00FF7F;
 }
 
 .post-body{
   position: relative;
   border: 1px solid black;
   height: 14em;
-  background: cornsilk;
+  background: white;
 }
 
 .post-category{
@@ -253,7 +256,7 @@ body{
   border: 1px solid black;
   border-bottom-right-radius: .3em;
   border-bottom-left-radius: .3em;
-  background: cornsilk;
+  background: #00FF7F;
 }
 
 .post-likes{
@@ -338,15 +341,15 @@ body{
 }
 
 .new-post{
-  border-radius: .2em;
+  border-radius: .1em;
   border: 1px solid black;
-  background: #ffc;
-  margin: 1em 0;
+  background: #aaa;
+  opacity: .7;
+  margin: 4em 0;
   cursor: pointer;
-  padding: .2em .4em;
+  padding: .5em 1em;
   font-family: 'Philosopher', sans-serif;
   font-size: 2em;
-  box-shadow: 5px 5px 2.55px #888888;
 }
 
 .new-post:hover{

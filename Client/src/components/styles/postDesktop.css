@@ -1,3 +1,11 @@
+.bg{
+  background-image: url('/car.jpg');
+  padding-top: 2em;
+  height: 140%;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 .createPostHeader{
   width: 30em;
   margin: 0 auto;
@@ -15,6 +23,8 @@
   border-top-right-radius: .33em;
   border-top-left-radius: .33em;
   border-bottom: 0;
+  background: white;
+  opacity: .7;
 }
 
 .createPostTitle{

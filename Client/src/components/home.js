@@ -91,7 +91,9 @@ class Home extends React.Component{
           <Route exact path="/">
             <div style={{textAlign: 'center'}}>
               {this.state.loggedIn ?
-                <Link to="/newPost"><button type="button" className="new-post">New Post</button></Link>
+                <div className="man">
+                  <Link to="/newPost"><button type="button" className="new-post">New Post</button></Link>
+                </div>
                  : null}
               {this.state.loggedIn ? null : <AccountForm updateToken={this.updateToken.bind(this)} token={this.updateToken.bind(this)} />}
               <Feed user={this.state.user} loggedIn={this.state.loggedIn} />

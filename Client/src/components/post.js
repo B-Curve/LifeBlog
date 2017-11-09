@@ -58,9 +58,10 @@ export default class Post extends React.Component{
 
   submitReply(){
     let reply = {
-      reply: this.state.replyBody
+      reply: this.state.replyBody,
+      replydate: new Date().toISOString().split("T")[0]
     };
-    axios.put(host+"post/"+this.state.id+"/reply", reply, {headers: {token: this.props.token}})
+    axios.put(host+"post/"+this.state.id, reply, {headers: {token: this.props.token}})
       .then((response) => {
         window.location.reload();
       });
@@ -112,7 +113,8 @@ export default class Post extends React.Component{
 
   render(){
     return(
-      <div style={{textAlign:'center'}}>
+      <div style={{textAlign:'center',backgroundImage:"url('/eiffel.jpg')",backgroundRepeat:'none',
+        backgroundAttachment:'fixed',backgroundSize:'cover',height:'100%',paddingTop:'3em'}}>
         <div className="view-container">
           {this.getPost()}
         </div>
