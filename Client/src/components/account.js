@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import './styles/accountDesktop.css';
+import { Link } from 'react-router-dom';
 
 const host = "http://localhost:8080/lifeblogServer/api/";
 
@@ -37,7 +38,7 @@ export default class Account extends React.Component{
         <li key={index} className="role" style={{color: '#2d4'}}>ADMIN</li>
       );
       POSTS = this.state.posts.map((item, index) =>
-        <li key={index} className="post">{item.title}</li>
+        <Link to={"post/"+item.id} key={index} className="post">{item.title}</Link>
       );
     }
     return(

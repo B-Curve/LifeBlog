@@ -100,7 +100,7 @@ class Home extends React.Component{
             </div>
           </Route>
           <Route path="/post">
-            <Post token={this.props.token} />
+            <Post userId={this.state.user.id} token={this.props.token} />
           </Route>
           <Route path="/newPost">
             <div>{this.state.loggedIn ? <PostCreator token={this.props.token} /> : window.location.pathname + '/'}</div>

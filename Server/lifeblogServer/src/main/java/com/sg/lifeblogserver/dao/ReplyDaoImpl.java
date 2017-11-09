@@ -18,11 +18,11 @@ import org.hibernate.query.Query;
  */
 public class ReplyDaoImpl implements ReplyDao {
 
-    private static final String GET_BY_POST = "SELECT r.* FROM Reply r "
+    private static final String GET_BY_POST = "SELECT r FROM Reply r "
             + " INNER JOIN Post p on p.id = r.postid "
             + " WHERE p.id = :postid";
 
-    private static final String GET_BY_USER = "SELECT r.* FROM Reply r "
+    private static final String GET_BY_USER = "SELECT r FROM Reply r "
             + " INNER JOIN Post p on p.id = r.postid "
             + " WHERE p.userid = :userid";
     

@@ -10,6 +10,7 @@ import com.sg.lifeblogserver.model.User;
 import com.sg.lifeblogserver.dao.CategoryDao;
 import com.sg.lifeblogserver.dao.UserDao;
 import com.sg.lifeblogserver.dao.PostDao;
+import com.sg.lifeblogserver.dao.ReplyDao;
 import com.sg.lifeblogserver.model.Category;
 import com.sg.lifeblogserver.model.Reply;
 import com.sg.lifeblogserver.model.request.PostRequest;
@@ -42,6 +43,8 @@ public class DataController {
     UserDao userDao;
     @Autowired
     PostDao postDao;
+    @Autowired
+    ReplyDao replyDao;
 
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public ResponseEntity fetchCategories() {
@@ -161,5 +164,11 @@ public class DataController {
         }
         postDao.delete(id);
         return ResponseEntity.ok(post);
+    }
+    
+    @RequestMapping(value = "/reply/post/{id}", method = RequestMethod.GET)
+    public ResponseEntity getRepliesByPostId(@PathVariable("id") long id){
+        List<Reply> replies = replyDao.getAllByPostId(id);
+        return ResponseEntity.ok(replies);
     }
 }

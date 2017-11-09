@@ -12,7 +12,8 @@ export default class Post extends React.Component{
       post: null,
       replyBody: '',
       replyOpen: false,
-      id: 0
+      id: 0,
+      replies: null
     }
   }
 
@@ -20,9 +21,12 @@ export default class Post extends React.Component{
     let id = window.location.pathname.split("post/")[1];
     axios.get(host+"post/"+id)
       .then((response) => {
-        console.log(response.data);
         this.setState({post: response.data, id: parseInt(id)});
       })
+    axios.get(host+"reply/post/"+id)
+      .then((response) => {
+        this.setState({replies: response.data});
+      });
   }
 
   buildDate = (date) => {
@@ -58,13 +62,19 @@ export default class Post extends React.Component{
 
   submitReply(){
     let reply = {
+      postId: this.state.id,
+      user: "",
+      category: "",
+      postdate: "",
+      title: "",
+      body: "",
+      liked: false,
       reply: this.state.replyBody,
+      replierid: this.props.userId,
       replydate: new Date().toISOString().split("T")[0]
     };
     axios.put(host+"post/"+this.state.id, reply, {headers: {token: this.props.token}})
-      .then((response) => {
-        window.location.reload();
-      });
+    window.location.reload();
   }
 
   openReply(){
@@ -103,10 +113,13 @@ export default class Post extends React.Component{
   };
 
   getReplies = () => {
-    if(this.state.post === null) return;
+    if(this.state.replies === null) return;
+    if(this.state.replies.length === 0) return <h1>This Post Has No Replies, Be The First!</h1>;
     return(
-      <div>
-        <h1>This post has no replies...</h1>
+      <div className="reply-list">
+        {this.state.replies.map((item, index) =>
+          <h1 className="post-reply" key={index}>{item.reply} - <span style={{color:'blue'}}>{item.replier.username}</span></h1>
+        )}
       </div>
     );
   };
